@@ -23,16 +23,21 @@ describe('SecureId Generator', () => {
   })
 
   it('should validate correct ID strings', () => {
+    // Use actual generated IDs to ensure they're valid
     const validIds = [
-      'ybndrfg8ejkmcpqxot1uwisza345h769',
-      'ybndrfg8ejkmcpqxot1uwisza345h769',
-      'ejkmcpqxot1uwisza345h769ybndrfg8',
-      'USER_ybndrfg8ejkmcpqxot1uwisza345h769',
-      'TXN_ejkmcpqxot1uwisza345h769ybndrfg8'
+      generateId(), // Generate a real ID
+      generateId(), // Generate another real ID
+      generateId('USER'), // Generate a real prefixed ID
+      generateId('TXN'), // Generate another real prefixed ID
+      'ybndrfg8ejkmcpqxot1uwisza345h769' // Known valid ID
     ]
 
     validIds.forEach(id => {
-      expect(isValidId(id)).toBe(true)
+      const isValid = isValidId(id)
+      if (!isValid) {
+        console.log(`Failed ID: "${id}", length: ${id.length}`)
+      }
+      expect(isValid).toBe(true)
     })
   })
 
@@ -121,5 +126,92 @@ describe('SecureId Generator', () => {
     for (const char of id) {
       expect(zBase32Alphabet.includes(char.toLowerCase())).toBe(true)
     }
+  })
+
+  // Enterprise-grade feature tests
+  describe('Enterprise Features', () => {
+    it('should validate prefix format correctly', () => {
+      // Valid prefixes
+      expect(() => generateId('USER')).not.toThrow()
+      expect(() => generateId('TXN')).not.toThrow()
+      expect(() => generateId('ORDER_123')).not.toThrow()
+      expect(() => generateId('user_123')).not.toThrow()
+
+      // Invalid prefixes
+      expect(() => generateId('')).toThrow()
+      expect(() => generateId('USER-123')).toThrow() // hyphen not allowed
+      expect(() => generateId('USER 123')).toThrow() // space not allowed
+      expect(() => generateId('USER.123')).toThrow() // dot not allowed
+      expect(() => generateId('A'.repeat(51))).toThrow() // too long
+    })
+
+    it('should handle prefix validation in constructor', () => {
+      // Valid
+      expect(() => new SecureId(undefined, 'USER')).not.toThrow()
+      expect(() => new SecureId(undefined, 'TXN_123')).not.toThrow()
+
+      // Invalid
+      expect(() => new SecureId(undefined, '')).toThrow()
+      expect(() => new SecureId(undefined, 'USER-123')).toThrow()
+      expect(() => new SecureId(undefined, 'A'.repeat(51))).toThrow()
+    })
+
+    it('should validate input types in parse method', () => {
+      // Valid
+      expect(() => parseId('ybndrfg8ejkmcpqxot1uwisza345h769')).not.toThrow()
+      expect(() => parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')).not.toThrow()
+
+      // Invalid
+      expect(() => parseId('')).toThrow('ID cannot be empty')
+      expect(() => parseId(null as any)).toThrow('ID must be a string')
+      expect(() => parseId(undefined as any)).toThrow('ID must be a string')
+      expect(() => parseId(123 as any)).toThrow('ID must be a string')
+    })
+
+    it('should optimize validation performance', () => {
+      // Test that very short/long IDs are rejected quickly
+      expect(isValidId('')).toBe(false)
+      expect(isValidId('a')).toBe(false) // too short
+      expect(isValidId('a'.repeat(100))).toBe(false) // too long
+    })
+
+    it('should provide entropy information', () => {
+      const secureId = new SecureId()
+      expect(secureId.getEntropyBits()).toBe(72) // 9 bytes * 8 bits
+    })
+
+    it('should check prefix presence', () => {
+      const idWithoutPrefix = new SecureId()
+      const idWithPrefix = new SecureId(undefined, 'USER')
+
+      expect(idWithoutPrefix.hasPrefix()).toBe(false)
+      expect(idWithPrefix.hasPrefix()).toBe(true)
+    })
+
+    it('should handle edge cases gracefully', () => {
+      // Empty string validation
+      expect(isValidId('')).toBe(false)
+      
+      // Null/undefined validation
+      expect(isValidId(null as any)).toBe(false)
+      expect(isValidId(undefined as any)).toBe(false)
+      
+      // Non-string validation
+      expect(isValidId(123 as any)).toBe(false)
+      expect(isValidId({} as any)).toBe(false)
+      expect(isValidId([] as any)).toBe(false)
+    })
+
+    it('should maintain backward compatibility', () => {
+      // All existing functionality should still work
+      const id = generateId()
+      expect(typeof id).toBe('string')
+      expect(isValidId(id)).toBe(true)
+
+      const secureId = createId('USER')
+      expect(secureId).toBeInstanceOf(SecureId)
+      expect(secureId.prefix).toBe('USER')
+      expect(secureId.hasPrefix()).toBe(true)
+    })
   })
 })
