@@ -1,0 +1,14 @@
+src/
+__tests__/
+docs/
+examples/
+.github/
+.vscode/
+*.test.ts
+*.spec.ts
+.eslintrc.js
+.prettierrc
+vitest.config.ts
+tsconfig.json
+.gitignore
+.npmignore

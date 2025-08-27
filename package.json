@@ -1,0 +1,73 @@
+{
+	"name": "@aexoo-ai/spark-id",
+	"version": "1.0.0",
+	"type": "module",
+	"description": "Cryptographically secure, URL-safe ID generator with prefix support",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"bin": {
+		"spark-id": "dist/cli.js"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"test": "vitest",
+		"test:coverage": "vitest --coverage",
+		"test:watch": "vitest --watch",
+		"lint": "eslint src --ext .ts",
+		"lint:fix": "eslint src --ext .ts --fix",
+		"format": "prettier --write src/**/*.ts",
+		"prepublishOnly": "npm run build && npm run test",
+		"prepare": "husky install",
+		"docs:dev": "vitepress dev docs",
+		"docs:build": "vitepress build docs",
+		"docs:preview": "vitepress preview docs"
+	},
+	"keywords": [
+		"id",
+		"generator",
+		"secure",
+		"unique",
+		"url-safe",
+		"base32",
+		"cli",
+		"cryptographic"
+	],
+	"author": "ÆXꝎ <info@aexoo.com>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/aexoo-ai/spark-id.git"
+	},
+	"bugs": {
+		"url": "https://github.com/aexoo-ai/spark-id/issues"
+	},
+	"homepage": "https://github.com/aexoo-ai/spark-id#readme",
+	"engines": {
+		"node": ">=16.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^24.3.0",
+		"@typescript-eslint/eslint-plugin": "^8.41.0",
+		"@typescript-eslint/parser": "^8.41.0",
+		"@vitest/coverage-v8": "^3.2.4",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.4",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.1.5",
+		"prettier": "^3.6.2",
+		"typescript": "^5.9.2",
+		"vitepress": "^1.6.4",
+		"vitest": "^3.2.4"
+	}
+}
