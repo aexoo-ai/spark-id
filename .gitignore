@@ -92,11 +92,12 @@ jspm_packages/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+dist/
 
 # Gatsby files
 .cache/
-public
+# Don't ignore docs/public as it contains static assets for VitePress
+# public
 
 # Storybook build outputs
 .out
