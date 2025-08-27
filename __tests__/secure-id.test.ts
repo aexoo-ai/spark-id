@@ -29,7 +29,7 @@ describe('SecureId Generator', () => {
       generateId(), // Generate another real ID
       generateId('USER'), // Generate a real prefixed ID
       generateId('TXN'), // Generate another real prefixed ID
-      'ybndrfg8ejkmcpqxot1uwisza345h769' // Known valid ID
+      '698de38kntcz9ja' // Known valid ID (15 characters)
     ]
 
     validIds.forEach(id => {
@@ -74,23 +74,23 @@ describe('SecureId Generator', () => {
 
   it('should parse IDs correctly', () => {
     // ID without prefix
-    const parsed1 = parseId('ybndrfg8ejkmcpqxot1uwisza345h769')
+    const parsed1 = parseId('698de38kntcz9ja')
     expect(parsed1).toEqual({
-      id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-      full: 'ybndrfg8ejkmcpqxot1uwisza345h769'
+      id: '698de38kntcz9ja',
+      full: '698de38kntcz9ja'
     })
 
     // ID with prefix
-    const parsed2 = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+    const parsed2 = parseId('USER_698de38kntcz9ja')
     expect(parsed2).toEqual({
       prefix: 'USER',
-      id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-      full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+      id: '698de38kntcz9ja',
+      full: 'USER_698de38kntcz9ja'
     })
   })
 
   it('should handle SecureId constructor with existing ID', () => {
-    const existingId = 'ybndrfg8ejkmcpqxot1uwisza345h769'
+    const existingId = '698de38kntcz9ja'
     const secureId = new SecureId(existingId)
     expect(secureId.id).toBe(existingId)
   })
@@ -102,8 +102,8 @@ describe('SecureId Generator', () => {
   })
 
   it('should handle SecureId.equals method', () => {
-    const id1 = new SecureId('ybndrfg8ejkmcpqxot1uwisza345h769')
-    const id2 = new SecureId('ybndrfg8ejkmcpqxot1uwisza345h769')
+    const id1 = new SecureId('698de38kntcz9ja')
+    const id2 = new SecureId('698de38kntcz9ja')
     const id3 = new SecureId('ejkmcpqxot1uwisza345h769ybndrfg8')
 
     expect(id1.equals(id2)).toBe(true)
@@ -158,8 +158,8 @@ describe('SecureId Generator', () => {
 
     it('should validate input types in parse method', () => {
       // Valid
-      expect(() => parseId('ybndrfg8ejkmcpqxot1uwisza345h769')).not.toThrow()
-      expect(() => parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')).not.toThrow()
+      expect(() => parseId('698de38kntcz9ja')).not.toThrow()
+      expect(() => parseId('USER_698de38kntcz9ja')).not.toThrow()
 
       // Invalid
       expect(() => parseId('')).toThrow('ID cannot be empty')
@@ -191,11 +191,11 @@ describe('SecureId Generator', () => {
     it('should handle edge cases gracefully', () => {
       // Empty string validation
       expect(isValidId('')).toBe(false)
-      
+
       // Null/undefined validation
       expect(isValidId(null as any)).toBe(false)
       expect(isValidId(undefined as any)).toBe(false)
-      
+
       // Non-string validation
       expect(isValidId(123 as any)).toBe(false)
       expect(isValidId({} as any)).toBe(false)
