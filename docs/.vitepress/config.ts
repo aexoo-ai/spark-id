@@ -4,6 +4,7 @@ export default defineConfig({
     title: 'Spark-ID',
     description: 'Cryptographically secure, URL-safe ID generator with prefix support',
     lang: 'en-US',
+    base: '/spark-id/',
 
     themeConfig: {
         logo: '/logo.svg',
@@ -88,7 +89,7 @@ export default defineConfig({
     },
 
     head: [
-        ['link', { rel: 'icon', href: '/favicon.ico' }],
+        ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
         ['meta', { name: 'theme-color', content: '#646cff' }]
     ]
 })
