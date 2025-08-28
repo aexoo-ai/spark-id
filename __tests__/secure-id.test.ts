@@ -18,7 +18,7 @@ describe('SecureId Generator', () => {
 
   it('should generate IDs with prefixes', () => {
     const userId = generateId('USER')
-    expect(userId).toMatch(/^USER_[YBNDRFG9EJKMCPQXWT2UWXSZA345H769]+$/)
+    expect(userId).toMatch(/^USER_[YVNDRFG9EJKMCPQXWT2UWXSZA345H769]+$/)
     expect(isValidId(userId)).toBe(true)
   })
 
