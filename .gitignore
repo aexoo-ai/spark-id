@@ -55,7 +55,7 @@ pids/
 
 # Package manager files
 package-lock.json
-# yarn.lock should be committed for yarn projects
+yarn.lock
 # pnpm-lock.yaml should be committed for pnpm projects
 
 # Documentation build
