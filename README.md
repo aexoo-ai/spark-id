@@ -301,6 +301,10 @@ npm run build
 npm run docs:dev
 ```
 
+### Publishing
+
+For information on how to publish new versions to npm, see [PUBLISHING.md](PUBLISHING.md).
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
