@@ -6,6 +6,8 @@ This document explains how to publish the `@aexoo-ai/spark-id` package to npm us
 
 The project uses GitHub Actions to automatically publish to npm when a new version tag is pushed. This ensures consistent, automated releases with proper testing and building.
 
+**Note**: This project uses `pnpm` as the package manager. The `pnpm-lock.yaml` file is committed to the repository to ensure reproducible builds.
+
 ## Prerequisites
 
 ### 1. NPM Account Setup
@@ -39,13 +41,13 @@ The project uses GitHub Actions to automatically publish to npm when a new versi
 
    ```bash
    # For bug fixes (1.0.0 → 1.0.1)
-   npm version patch
+   pnpm version patch
 
    # For new features (1.0.0 → 1.1.0)
-   npm version minor
+   pnpm version minor
 
    # For breaking changes (1.0.0 → 2.0.0)
-   npm version major
+   pnpm version major
    ```
 
 ### Step 2: Commit and Push
@@ -98,13 +100,13 @@ The GitHub Action will automatically:
 - **Minor** (1.0.0 → 1.1.0): New features (backward compatible)
 - **Major** (1.0.0 → 2.0.0): Breaking changes
 
-### Using npm version
+### Using pnpm version
 
 ```bash
 # Automatically updates package.json and creates git tag
-npm version patch
-npm version minor
-npm version major
+pnpm version patch
+pnpm version minor
+pnpm version major
 ```
 
 ## Troubleshooting
@@ -117,8 +119,8 @@ npm version major
    - Check that the secret is named exactly `NPM_TOKEN`
 
 2. **Build Failures**:
-   - Check that all tests pass locally: `npm test`
-   - Ensure TypeScript compilation works: `npm run build`
+   - Check that all tests pass locally: `pnpm test`
+   - Ensure TypeScript compilation works: `pnpm build`
    - Verify all dependencies are in package.json
 
 3. **Publishing Failures**:
@@ -132,14 +134,14 @@ If you need to publish manually:
 
 ```bash
 # Login to npm
-npm login
+pnpm login
 
 # Build and test
-npm run build
-npm test
+pnpm build
+pnpm test
 
 # Publish
-npm publish
+pnpm publish
 ```
 
 ## Best Practices
@@ -147,8 +149,8 @@ npm publish
 1. **Always test locally** before pushing:
 
    ```bash
-   npm test
-   npm run build
+   pnpm test
+   pnpm build
    ```
 
 2. **Use semantic versioning** appropriately
