@@ -81,7 +81,7 @@ The GitHub Action will automatically:
   - Installs dependencies
   - Runs tests
   - Builds the package
-  - Publishes to npm
+  - Publishes to npm (with `--no-git-checks` to handle detached HEAD state)
 
 ### ci.yml
 
@@ -127,6 +127,7 @@ pnpm version major
    - Check if the version already exists on npm
    - Verify you have publish permissions for the package
    - Ensure the package name in package.json matches npm registry
+   - **Git branch issues**: If you see `ERR_PNPM_GIT_UNKNOWN_BRANCH`, the workflow uses `--no-git-checks` to handle detached HEAD state when publishing from tags
 
 ### Manual Publishing (if needed)
 
