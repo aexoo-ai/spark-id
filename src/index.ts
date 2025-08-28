@@ -1,1 +1,1 @@
-export * from './lib/secure-id'
+export * from './lib/secure-id';

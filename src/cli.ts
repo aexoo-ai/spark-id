@@ -1,56 +1,56 @@
 #!/usr/bin/env node
 
-import { generateId, isValidId, parseId } from './lib/secure-id'
+import { generateId, isValidId, parseId } from './lib/secure-id';
 
 interface CliOptions {
-  prefix?: string
-  count?: number
-  validate?: string
-  parse?: string
-  help?: boolean
-  format?: 'json' | 'text' | 'csv'
-  examples?: boolean
+  prefix?: string;
+  count?: number;
+  validate?: string;
+  parse?: string;
+  help?: boolean;
+  format?: 'json' | 'text' | 'csv';
+  examples?: boolean;
 }
 
 function parseArgs(): CliOptions {
-  const args = process.argv.slice(2)
-  const options: CliOptions = {}
+  const args = process.argv.slice(2);
+  const options: CliOptions = {};
 
   for (let i = 0; i < args.length; i++) {
-    const arg = args[i]
+    const arg = args[i];
 
     switch (arg) {
       case '--prefix':
       case '-p':
-        options.prefix = args[++i]
-        break
+        options.prefix = args[++i];
+        break;
       case '--count':
       case '-c':
-        options.count = parseInt(args[++i], 10)
-        break
+        options.count = parseInt(args[++i], 10);
+        break;
       case '--validate':
       case '-v':
-        options.validate = args[++i]
-        break
+        options.validate = args[++i];
+        break;
       case '--parse':
-        options.parse = args[++i]
-        break
+        options.parse = args[++i];
+        break;
       case '--format':
       case '-f':
-        options.format = args[++i] as 'json' | 'text' | 'csv'
-        break
+        options.format = args[++i] as 'json' | 'text' | 'csv';
+        break;
       case '--examples':
       case '-e':
-        options.examples = true
-        break
+        options.examples = true;
+        break;
       case '--help':
       case '-h':
-        options.help = true
-        break
+        options.help = true;
+        break;
     }
   }
 
-  return options
+  return options;
 }
 
 function showHelp() {
@@ -84,7 +84,7 @@ Output formats:
 Exit codes:
   0: Success
   1: Error or validation failed
-`)
+`);
 }
 
 function showExamples() {
@@ -145,79 +145,80 @@ INSERT INTO users (id) VALUES ('USER_abc123def456ghi789');
 $ curl -X POST http://localhost:3000/api/users \\
   -H "Content-Type: application/json" \\
   -d "{\\"id\\": \\"$(spark-id -p USER)\\", \\"name\\": \\"John Doe\\"}"
-`)
+`);
 }
 
 function outputIds(ids: string[], format: string = 'text') {
   switch (format) {
     case 'json':
       if (ids.length === 1) {
-        console.log(JSON.stringify(ids[0]))
+        console.log(JSON.stringify(ids[0]));
       } else {
-        console.log(JSON.stringify(ids, null, 2))
+        console.log(JSON.stringify(ids, null, 2));
       }
-      break
+      break;
     case 'csv':
-      console.log(ids.join(','))
-      break
+      console.log(ids.join(','));
+      break;
     case 'text':
     default:
-      ids.forEach(id => console.log(id))
-      break
+      ids.forEach((id) => console.log(id));
+      break;
   }
 }
 
 function main() {
-  const options = parseArgs()
+  const options = parseArgs();
 
   if (options.help) {
-    showHelp()
-    return
+    showHelp();
+    return;
   }
 
   if (options.examples) {
-    showExamples()
-    return
+    showExamples();
+    return;
   }
 
   // Validation mode
   if (options.validate) {
-    const isValid = isValidId(options.validate)
-    console.log(isValid)
-    process.exit(isValid ? 0 : 1)
+    const isValid = isValidId(options.validate);
+    console.log(isValid);
+    process.exit(isValid ? 0 : 1);
   }
 
   // Parse mode
   if (options.parse) {
     try {
-      const parsed = parseId(options.parse)
-      console.log(JSON.stringify(parsed, null, 2))
+      const parsed = parseId(options.parse);
+      console.log(JSON.stringify(parsed, null, 2));
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error)
-      console.error('Error parsing ID:', errorMessage)
-      process.exit(1)
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      console.error('Error parsing ID:', errorMessage);
+      process.exit(1);
     }
-    return
+    return;
   }
 
   // Generation mode
-  const count = options.count || 1
-  const ids: string[] = []
+  const count = options.count || 1;
+  const ids: string[] = [];
 
   for (let i = 0; i < count; i++) {
-    ids.push(generateId(options.prefix))
+    ids.push(generateId(options.prefix));
   }
 
-  outputIds(ids, options.format)
+  outputIds(ids, options.format);
 }
 
 // Handle errors gracefully
 process.on('uncaughtException', (error) => {
-  const errorMessage = error instanceof Error ? error.message : String(error)
-  console.error('Error:', errorMessage)
-  process.exit(1)
-})
+  const errorMessage = error instanceof Error ? error.message : String(error);
+  console.error('Error:', errorMessage);
+  process.exit(1);
+});
 
 if (require.main === module) {
-  main()
+  main();
 }
