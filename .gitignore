@@ -36,11 +36,6 @@ coverage/
 # Logs
 logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
 # Runtime data
 pids/
@@ -48,60 +43,24 @@ pids/
 *.seed
 *.pid.lock
 
-# Coverage directory used by tools like istanbul
-coverage/
-*.lcov
-
-# nyc test coverage
-.nyc_output/
-
-# Dependency directories
-node_modules/
-jspm_packages/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Optional stylelint cache
-.stylelintcache
-
-# Microbundle cache
+# Cache directories
+.cache/
+.parcel-cache/
 .rpt2_cache/
 .rts2_cache_cjs/
 .rts2_cache_es/
 .rts2_cache_umd/
+.eslintcache
+.stylelintcache
 
-# Optional REPL history
-.node_repl_history
+# Package manager files
+package-lock.json
+# yarn.lock should be committed for yarn projects
+# pnpm-lock.yaml should be committed for pnpm projects
 
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
-
-# Next.js build output
-.next
-
-# Nuxt.js build / generate output
-.nuxt
-dist/
-
-# Gatsby files
-.cache/
-# Don't ignore docs/public as it contains static assets for VitePress
-# public
-
-# Storybook build outputs
-.out
-.storybook-out
+# Documentation build
+docs/.vitepress/dist/
+docs/.vitepress/cache/
 
 # Temporary folders
 tmp/
@@ -122,15 +81,32 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+Desktop.ini
 
-# Documentation build
-docs/.vitepress/dist/
-docs/.vitepress/cache/
+# Windows
+$RECYCLE.BIN/
 
-# Package manager files
-package-lock.json
-# yarn.lock should be committed for yarn projects
-# pnpm-lock.yaml should be committed for pnpm projects
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# macOS
+.AppleDouble
+.LSOverride
+Icon
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
 # Local development
 .local/
@@ -148,53 +124,17 @@ package-lock.json
 *.tmp
 *.temp
 
-# IDE files
-.vscode/settings.json
-.vscode/launch.json
-.vscode/tasks.json
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/usage.statistics.xml
-.idea/dictionaries/
-.idea/shelf/
+# Output of 'npm pack'
+*.tgz
 
-# OS specific
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-Desktop.ini
+# Yarn Integrity file
+.yarn-integrity
 
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
+# Optional REPL history
+.node_repl_history
 
-# Linux
-*~
-.fuse_hidden*
-.directory
-.Trash-*
-.nfs*
+# Optional npm cache directory
+.npm
 
-# macOS
-.AppleDouble
-.LSOverride
-Icon
-._*
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+# Dependency directories
+jspm_packages/
