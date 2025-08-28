@@ -35,11 +35,11 @@ import { generateId, isValidId, parseId } from '@aexoo-ai/spark-id';
 
 // Generate a simple ID
 const id = generateId();
-console.log(id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate with prefix
 const userId = generateId('USER');
-console.log(userId); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Validate an ID
 console.log(isValidId(userId)); // true
@@ -47,7 +47,7 @@ console.log(isValidId(userId)); // true
 // Parse an ID
 const parsed = parseId(userId);
 console.log(parsed.prefix); // "USER"
-console.log(parsed.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(parsed.id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### CLI Usage
@@ -145,9 +145,9 @@ console.log(new Set(userIds).size); // 1000 (no duplicates)
 import { SecureId } from '@aexoo-ai/spark-id';
 
 const secureId = new SecureId(undefined, 'USER');
-console.log(secureId.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 console.log(secureId.prefix); // "USER"
-console.log(secureId.full); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.full); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Compare IDs
 const id1 = new SecureId('abc123');

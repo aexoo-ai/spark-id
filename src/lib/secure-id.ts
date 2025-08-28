@@ -11,28 +11,28 @@ const Z_BASE32_ALPHABET = 'ybndrfg8ejkmcpqxot1uwisza345h769'
  * - URL-safe Z-Base32 encoding
  * - Optional prefix support (e.g., "USER_", "TXN_")
  * - Collision-resistant
- * - Human-readable
+ * - Human-readable (all uppercase)
  * 
  * @example
  * ```typescript
  * // Basic usage
- * const id = generateId() // "ybndrfg8ejkmcpqxot1uwisza345h769"
+ * const id = generateId() // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
  * 
  * // With prefix
- * const userId = generateId('USER') // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
- * const txnId = generateId('TXN') // "TXN_ybndrfg8ejkmcpqxot1uwisza345h769"
+ * const userId = generateId('USER') // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+ * const txnId = generateId('TXN') // "TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
  * 
  * // Validation
- * isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769') // true
+ * isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769') // true
  * isValidId('invalid-id') // false
  * 
  * // Parsing
- * const parsed = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
- * // { prefix: 'USER', id: 'ybndrfg8ejkmcpqxot1uwisza345h769', full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769' }
+ * const parsed = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
+ * // { prefix: 'USER', id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769', full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769' }
  * ```
  */
 export class SecureId {
-  private static readonly Z_BASE32_ALPHABET = 'ybndrfg8ejkmcpqxot1uwisza345h769'
+  private static readonly Z_BASE32_ALPHABET = 'yvndrfg9ejkmcpqxwt2uwxsza345h769'
   private static readonly BYTES_LENGTH = 9
   private static readonly PREFIX_SEPARATOR = '_'
   private static readonly MAX_PREFIX_LENGTH = 50 // Prevent extremely long prefixes
@@ -48,9 +48,12 @@ export class SecureId {
       throw new Error(`Invalid prefix: ${prefix}. Prefix must contain only alphanumeric characters and underscores, and be between 1-50 characters.`)
     }
 
+    // Convert prefix to uppercase for consistency
+    const upperPrefix = prefix ? prefix.toUpperCase() : undefined
+
     this.id = id || SecureId.generateRaw()
-    this.prefix = prefix
-    this.full = prefix ? `${prefix}${SecureId.PREFIX_SEPARATOR}${this.id}` : this.id
+    this.prefix = upperPrefix
+    this.full = upperPrefix ? `${upperPrefix}${SecureId.PREFIX_SEPARATOR}${this.id}` : this.id
   }
 
   /**
@@ -82,7 +85,9 @@ export class SecureId {
     }
 
     const rawId = SecureId.generateRaw()
-    return prefix ? `${prefix}${SecureId.PREFIX_SEPARATOR}${rawId}` : rawId
+    // Convert prefix to uppercase for consistency
+    const upperPrefix = prefix ? prefix.toUpperCase() : undefined
+    return upperPrefix ? `${upperPrefix}${SecureId.PREFIX_SEPARATOR}${rawId}` : rawId
   }
 
   /**
@@ -164,7 +169,8 @@ export class SecureId {
       result += SecureId.Z_BASE32_ALPHABET[(value << (5 - bits)) & 31]
     }
 
-    return result
+    // Convert to uppercase for better human readability
+    return result.toUpperCase()
   }
 
   toString(): string {

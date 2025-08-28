@@ -70,11 +70,11 @@ Options:
   -h, --help                 Show this help message
 
 Examples:
-  spark-id                                    # Generate a single ID
-  spark-id -p USER                           # Generate ID with USER prefix
-  spark-id -p TXN -c 5                       # Generate 5 transaction IDs
-  spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769  # Validate an ID
-  spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769  # Parse an ID
+    spark-id                                    # Generate a single ID
+    spark-id -p USER                           # Generate ID with USER prefix
+    spark-id -p TXN -c 5                       # Generate 5 transaction IDs
+    spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769  # Validate an ID
+    spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769  # Parse an ID
 
 Output formats:
   - text: plain text (default)
@@ -93,27 +93,27 @@ Usage Examples:
 
 # Basic generation
 $ spark-id
-ybndrfg8ejkmcpqxot1uwisza345h769
+YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # With prefix
 $ spark-id -p USER
-USER_ybndrfg8ejkmcpqxot1uwisza345h769
+USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # Multiple IDs
 $ spark-id -c 3
-ybndrfg8ejkmcpqxot1uwisza345h769
-abc123def456ghi789
-xyz789uvw012mno345
+YBNDRFG8EJKMCPQXOT1UWISZA345H769
+ABC123DEF456GHI789
+XYZ789UVW012MNO345
 
 # Multiple IDs with prefix in JSON format
 $ spark-id -p TXN -c 2 -f json
 [
-  "TXN_ybndrfg8ejkmcpqxot1uwisza345h769",
-  "TXN_abc123def456ghi789"
+  "TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+  "TXN_ABC123DEF456GHI789"
 ]
 
 # Validation
-$ spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+$ spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 true
 
 $ spark-id -v invalid-id

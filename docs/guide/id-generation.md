@@ -9,10 +9,10 @@ Learn about the different ways to generate IDs with Spark-ID.
 Generate a basic ID without any prefix:
 
 ```typescript
-import { generateId } from '@aexoo-ai/spark-id'
+import { generateId } from '@aexoo-ai/spark-id';
 
-const id = generateId()
-console.log(id) // "ybndrfg8ejkmcpqxot1uwisza345h769"
+const id = generateId();
+console.log(id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
 ```
 
 ### Prefixed IDs
@@ -20,13 +20,13 @@ console.log(id) // "ybndrfg8ejkmcpqxot1uwisza345h769"
 Add a meaningful prefix to organize your IDs:
 
 ```typescript
-const userId = generateId('USER')
-const txnId = generateId('TXN')
-const orderId = generateId('ORDER')
+const userId = generateId('USER');
+const txnId = generateId('TXN');
+const orderId = generateId('ORDER');
 
-console.log(userId)  // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(txnId)   // "TXN_ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(orderId) // "ORDER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(txnId); // "TXN_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(orderId); // "ORDER_ybndrfg8ejkmcpqxot1uwisza345h769"
 ```
 
 ## Using the SecureId Class
@@ -34,25 +34,25 @@ console.log(orderId) // "ORDER_ybndrfg8ejkmcpqxot1uwisza345h769"
 ### Creating Instances
 
 ```typescript
-import { SecureId, createId } from '@aexoo-ai/spark-id'
+import { SecureId, createId } from '@aexoo-ai/spark-id';
 
 // Using the constructor
-const secureId1 = new SecureId()
-const secureId2 = new SecureId(undefined, 'USER')
+const secureId1 = new SecureId();
+const secureId2 = new SecureId(undefined, 'USER');
 
 // Using the factory function
-const secureId3 = createId()
-const secureId4 = createId('TXN')
+const secureId3 = createId();
+const secureId4 = createId('TXN');
 ```
 
 ### Accessing Properties
 
 ```typescript
-const secureId = new SecureId(undefined, 'USER')
+const secureId = new SecureId(undefined, 'USER');
 
-console.log(secureId.id)     // "ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(secureId.prefix) // "USER"
-console.log(secureId.full)   // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.prefix); // "USER"
+console.log(secureId.full); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
 ```
 
 ## Bulk Generation
@@ -61,13 +61,13 @@ Generate multiple IDs efficiently:
 
 ```typescript
 // Generate an array of IDs
-const ids = Array.from({ length: 10 }, () => generateId())
+const ids = Array.from({ length: 10 }, () => generateId());
 
 // Generate multiple prefixed IDs
-const userIds = Array.from({ length: 5 }, () => generateId('USER'))
+const userIds = Array.from({ length: 5 }, () => generateId('USER'));
 
 // Using SecureId class
-const secureIds = Array.from({ length: 3 }, () => createId('TXN'))
+const secureIds = Array.from({ length: 3 }, () => createId('TXN'));
 ```
 
 ## Static Methods
@@ -75,16 +75,16 @@ const secureIds = Array.from({ length: 3 }, () => createId('TXN'))
 Use static methods for direct access:
 
 ```typescript
-import { SecureId } from '@aexoo-ai/spark-id'
+import { SecureId } from '@aexoo-ai/spark-id';
 
 // Generate directly
-const id = SecureId.generate('USER')
+const id = SecureId.generate('USER');
 
 // Create instance
-const secureId = SecureId.create('TXN')
+const secureId = SecureId.create('TXN');
 
 // Generate raw ID (without prefix)
-const rawId = SecureId.generateRaw()
+const rawId = SecureId.generateRaw();
 ```
 
 ## ID Format Details
@@ -94,7 +94,7 @@ const rawId = SecureId.generateRaw()
 Spark-ID generates IDs with the following characteristics:
 
 - **Length**: 12-15 characters
-- **Alphabet**: Z-Base32 (`ybndrfg8ejkmcpqxot1uwisza345h769`)
+- **Alphabet**: Z-Base32 (`yvndrfg9ejkmcpqxwt2uwxsza345h769`)
 - **Entropy**: 72 bits (9 bytes)
 - **Format**: `[PREFIX_]ID`
 
@@ -120,11 +120,11 @@ Spark-ID is optimized for high-performance generation:
 
 ```typescript
 // Performance test
-const start = Date.now()
-const ids = Array.from({ length: 1000 }, () => generateId())
-const end = Date.now()
+const start = Date.now();
+const ids = Array.from({ length: 1000 }, () => generateId());
+const end = Date.now();
 
-console.log(`Generated ${ids.length} IDs in ${end - start}ms`)
+console.log(`Generated ${ids.length} IDs in ${end - start}ms`);
 // Typically generates 1000+ IDs per second
 ```
 
@@ -134,37 +134,37 @@ console.log(`Generated ${ids.length} IDs in ${end - start}ms`)
 
 ```typescript
 // Good prefixes
-const userId = generateId('USER')
-const txnId = generateId('TXN')
-const orderId = generateId('ORDER')
-const commentId = generateId('COMMENT')
+const userId = generateId('USER');
+const txnId = generateId('TXN');
+const orderId = generateId('ORDER');
+const commentId = generateId('COMMENT');
 
 // Avoid generic prefixes
-const id1 = generateId('ID') // Too generic
-const obj1 = generateId('OBJ') // Too generic
+const id1 = generateId('ID'); // Too generic
+const obj1 = generateId('OBJ'); // Too generic
 ```
 
 ### Use Consistent Naming
 
 ```typescript
 // Be consistent with your prefix naming
-const user1 = generateId('USER')
-const user2 = generateId('USER')
-const user3 = generateId('USER')
+const user1 = generateId('USER');
+const user2 = generateId('USER');
+const user3 = generateId('USER');
 
 // Don't mix different styles
-const user4 = generateId('user') // Inconsistent casing
-const user5 = generateId('USR')  // Inconsistent abbreviation
+const user4 = generateId('user'); // Inconsistent casing
+const user5 = generateId('USR'); // Inconsistent abbreviation
 ```
 
 ### Handle Errors Gracefully
 
 ```typescript
 try {
-  const id = generateId()
+  const id = generateId();
   // Use the ID
 } catch (error) {
-  console.error('Failed to generate ID:', error)
+  console.error('Failed to generate ID:', error);
   // Handle the error appropriately
 }
 ```

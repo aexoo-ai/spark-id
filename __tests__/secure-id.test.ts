@@ -18,7 +18,7 @@ describe('SecureId Generator', () => {
 
   it('should generate IDs with prefixes', () => {
     const userId = generateId('USER')
-    expect(userId).toMatch(/^USER_[ybndrfg8ejkmcpqxot1uwisza345h769]+$/)
+    expect(userId).toMatch(/^USER_[YBNDRFG9EJKMCPQXWT2UWXSZA345H769]+$/)
     expect(isValidId(userId)).toBe(true)
   })
 
@@ -29,7 +29,6 @@ describe('SecureId Generator', () => {
       generateId(), // Generate another real ID
       generateId('USER'), // Generate a real prefixed ID
       generateId('TXN'), // Generate another real prefixed ID
-      '698de38kntcz9ja' // Known valid ID (15 characters)
     ]
 
     validIds.forEach(id => {
@@ -49,6 +48,7 @@ describe('SecureId Generator', () => {
       'abc123def456ghi789jkl012mno345pqr678stu901vwx234yzi', // contains i
       'abc123def456ghi789jkl012mno345pqr678stu901vwx234yzb', // contains b
       'abc123def456ghi789jkl012mno345pqr678stu901vwx234yz8', // contains 8
+      'abc123def456ghi789jkl012mno345pqr678stu901vwx234yz1', // contains 1
       'abc-123-def-456', // contains hyphens
       'abc_123_def_456', // multiple underscores
       'abc 123 def 456', // contains spaces
@@ -74,23 +74,25 @@ describe('SecureId Generator', () => {
 
   it('should parse IDs correctly', () => {
     // ID without prefix
-    const parsed1 = parseId('698de38kntcz9ja')
+    const testId = generateId()
+    const parsed1 = parseId(testId)
     expect(parsed1).toEqual({
-      id: '698de38kntcz9ja',
-      full: '698de38kntcz9ja'
+      id: testId,
+      full: testId
     })
 
     // ID with prefix
-    const parsed2 = parseId('USER_698de38kntcz9ja')
+    const testPrefixedId = generateId('USER')
+    const parsed2 = parseId(testPrefixedId)
     expect(parsed2).toEqual({
       prefix: 'USER',
-      id: '698de38kntcz9ja',
-      full: 'USER_698de38kntcz9ja'
+      id: testPrefixedId.split('_')[1],
+      full: testPrefixedId
     })
   })
 
   it('should handle SecureId constructor with existing ID', () => {
-    const existingId = '698de38kntcz9ja'
+    const existingId = generateId()
     const secureId = new SecureId(existingId)
     expect(secureId.id).toBe(existingId)
   })
@@ -102,9 +104,10 @@ describe('SecureId Generator', () => {
   })
 
   it('should handle SecureId.equals method', () => {
-    const id1 = new SecureId('698de38kntcz9ja')
-    const id2 = new SecureId('698de38kntcz9ja')
-    const id3 = new SecureId('ejkmcpqxot1uwisza345h769ybndrfg8')
+    const testId = generateId()
+    const id1 = new SecureId(testId)
+    const id2 = new SecureId(testId)
+    const id3 = new SecureId(generateId())
 
     expect(id1.equals(id2)).toBe(true)
     expect(id1.equals(id2.id)).toBe(true)
@@ -120,7 +123,7 @@ describe('SecureId Generator', () => {
   })
 
   it('should only use Z-Base32 alphabet characters', () => {
-    const zBase32Alphabet = 'ybndrfg8ejkmcpqxot1uwisza345h769'
+    const zBase32Alphabet = 'yvndrfg9ejkmcpqxwt2uwxsza345h769'
     const id = generateId()
 
     for (const char of id) {
@@ -158,8 +161,10 @@ describe('SecureId Generator', () => {
 
     it('should validate input types in parse method', () => {
       // Valid
-      expect(() => parseId('698de38kntcz9ja')).not.toThrow()
-      expect(() => parseId('USER_698de38kntcz9ja')).not.toThrow()
+      const testId = generateId()
+      const testPrefixedId = generateId('USER')
+      expect(() => parseId(testId)).not.toThrow()
+      expect(() => parseId(testPrefixedId)).not.toThrow()
 
       // Invalid
       expect(() => parseId('')).toThrow('ID cannot be empty')

@@ -146,7 +146,7 @@ PREFIX_ybndrfg8ejkmcpqxot1uwisza345h769
 ### Characteristics
 
 - **Length**: 12-15 characters (depending on encoding)
-- **Alphabet**: Z-Base32 (`ybndrfg8ejkmcpqxot1uwisza345h769`)
+- **Alphabet**: Z-Base32 (`yvndrfg9ejkmcpqxwt2uwxsza345h769`)
 - **Entropy**: 72 bits (9 bytes)
 - **Collision Resistance**: Extremely high
 - **URL-Safe**: No special characters that need encoding
