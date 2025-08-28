@@ -8,6 +8,8 @@ The project uses GitHub Actions to automatically publish to npm when a new versi
 
 **Note**: This project uses `pnpm` as the package manager. The `pnpm-lock.yaml` file is committed to the repository to ensure reproducible builds.
 
+**Important**: This is a scoped package (`@aexoo-ai/spark-id`) which is published as **public** by default. The workflow uses `--access public` to ensure it's published publicly.
+
 ## Prerequisites
 
 ### 1. NPM Account Setup
@@ -81,7 +83,7 @@ The GitHub Action will automatically:
   - Installs dependencies
   - Runs tests
   - Builds the package
-  - Publishes to npm (with `--no-git-checks` to handle detached HEAD state)
+  - Publishes to npm (with `--no-git-checks` to handle detached HEAD state and `--access public` for scoped packages)
 
 ### ci.yml
 
@@ -128,6 +130,7 @@ pnpm version major
    - Verify you have publish permissions for the package
    - Ensure the package name in package.json matches npm registry
    - **Git branch issues**: If you see `ERR_PNPM_GIT_UNKNOWN_BRANCH`, the workflow uses `--no-git-checks` to handle detached HEAD state when publishing from tags
+   - **Private package errors**: If you see "You must sign up for private packages", ensure `--access public` is used for scoped packages that should be public
 
 ### Manual Publishing (if needed)
 
