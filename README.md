@@ -310,6 +310,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Inspired by [nanoid](https://github.com/ai/nanoid) and [ulid](https://github.com/ulid/spec)
 - Z-Base32 encoding for URL-safe characters
 - Node.js crypto module for secure randomness
+- Meets AEXOO requirements
 
 ## 📞 Support
 
