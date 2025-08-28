@@ -1,6 +1,6 @@
 {
 	"name": "@aexoo-ai/spark-id",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "module",
 	"description": "Cryptographically secure, URL-safe ID generator with prefix support",
 	"main": "dist/index.js",
