@@ -129,7 +129,7 @@ docs/.vitepress/cache/
 
 # Package manager files
 package-lock.json
-yarn.lock
+# yarn.lock should be committed for yarn projects
 # pnpm-lock.yaml should be committed for pnpm projects
 
 # Local development
