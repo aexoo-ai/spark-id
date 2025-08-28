@@ -26,6 +26,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Debug - Show files
+        run: |
+          echo "=== Current directory ==="
+          ls -la
+          echo "=== pnpm-workspace.yaml content ==="
+          cat pnpm-workspace.yaml || echo "File not found"
+          echo "=== .npmrc content ==="
+          cat .npmrc || echo "File not found"
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -35,6 +44,13 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 8
+
+      - name: Debug - pnpm version and config
+        run: |
+          echo "=== pnpm version ==="
+          pnpm --version
+          echo "=== pnpm config ==="
+          pnpm config list
 
       - name: Get pnpm store directory
         shell: bash
