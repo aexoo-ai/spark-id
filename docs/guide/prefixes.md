@@ -10,10 +10,10 @@ Prefixes are optional labels that help you categorize and identify different typ
 import { generateId } from '@aexoo-ai/spark-id'
 
 // Without prefix
-const id = generateId() // "ybndrfg8ejkmcpqxot1uwisza345h769"
+const id = generateId() // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // With prefix
-const userId = generateId('USER') // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+const userId = generateId('USER') // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ## Why Use Prefixes?
@@ -32,8 +32,8 @@ const commentId = generateId('COMMENT') // Comments
 Prefixes make it easier to identify ID types in logs and databases:
 
 ```typescript
-console.log('Processing user:', userId) // "Processing user: USER_ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log('Transaction ID:', txnId)   // "Transaction ID: TXN_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log('Processing user:', userId) // "Processing user: USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log('Transaction ID:', txnId)   // "Transaction ID: TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### 3. **Database Queries**
@@ -94,7 +94,7 @@ const logId = generateId('LOG')
 ### Best Practices
 
 ```typescript
-// ✅ Use UPPERCASE for consistency
+// ✅ Prefer UPPERCASE (default output casing can be configured)
 const userId = generateId('USER')
 const txnId = generateId('TXN')
 
@@ -129,12 +129,12 @@ const tId = generateId('T')     // Too short
 ```typescript
 import { parseId } from '@aexoo-ai/spark-id'
 
-const prefixedId = 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+const prefixedId = 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 const parsed = parseId(prefixedId)
 
 console.log(parsed.prefix) // "USER"
-console.log(parsed.id)     // "ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(parsed.full)   // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(parsed.id)     // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(parsed.full)   // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Validation
@@ -143,9 +143,9 @@ console.log(parsed.full)   // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
 import { isValidId } from '@aexoo-ai/spark-id'
 
 // Validate prefixed IDs
-console.log(isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')) // true
-console.log(isValidId('TXN_ybndrfg8ejkmcpqxot1uwisza345h769'))  // true
-console.log(isValidId('INVALID_ybndrfg8ejkmcpqxot1uwisza345h769')) // false (invalid characters)
+console.log(isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // true
+console.log(isValidId('TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769'))  // true
+console.log(isValidId('INVALID_YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // false (invalid characters)
 ```
 
 ### Filtering by Prefix
@@ -153,9 +153,9 @@ console.log(isValidId('INVALID_ybndrfg8ejkmcpqxot1uwisza345h769')) // false (inv
 ```typescript
 // Filter IDs by prefix
 const ids = [
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769',
-  'TXN_ybndrfg8ejkmcpqxot1uwisza345h769',
-  'ORDER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+  'TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+  'ORDER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 ]
 
 const userIds = ids.filter(id => id.startsWith('USER_'))

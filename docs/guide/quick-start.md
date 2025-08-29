@@ -11,17 +11,19 @@ npm install @aexoo-ai/spark-id
 ## 2. Generate Your First ID
 
 ```typescript
-import { generateId } from '@aexoo-ai/spark-id'
+import { generateId, configure } from '@aexoo-ai/spark-id'
+
+configure({ case: 'upper' })
 
 const id = generateId()
-console.log(id) // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(id) // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ## 3. Add a Prefix
 
 ```typescript
 const userId = generateId('USER')
-console.log(userId) // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId) // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ## 4. Validate IDs

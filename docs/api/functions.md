@@ -2,13 +2,14 @@
 
 Complete reference for all functions in the Spark-ID API.
 
-## `generateId(prefix?: string): string`
+## `generateId(prefix?: string, config?: Partial<SparkIdConfig>): string`
 
 Generates a new cryptographically secure ID.
 
 ### Parameters
 
 - `prefix` (optional): A string prefix to add to the ID
+- `config` (optional): Partial `SparkIdConfig` to override global/default settings
 
 ### Returns
 
@@ -21,17 +22,17 @@ import { generateId } from '@aexoo-ai/spark-id'
 
 // Generate a simple ID
 const id = generateId()
-console.log(id) // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(id) // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate with prefix
 const userId = generateId('USER')
-console.log(userId) // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId) // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate multiple IDs
 const ids = Array.from({ length: 3 }, () => generateId())
 console.log(ids)
 // [
-//   "ybndrfg8ejkmcpqxot1uwisza345h769",
+//   "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
 //   "abc123def456ghi789",
 //   "xyz789uvw012mno345"
 // ]
@@ -43,13 +44,14 @@ console.log(ids)
 - **Memory**: Minimal memory footprint
 - **Thread Safety**: Safe for concurrent use
 
-## `createId(prefix?: string): SecureId`
+## `createId(prefix?: string, config?: Partial<SparkIdConfig>): SecureId`
 
 Creates a new SecureId instance.
 
 ### Parameters
 
 - `prefix` (optional): A string prefix to add to the ID
+- `config` (optional): Partial `SparkIdConfig` to override global/default settings
 
 ### Returns
 
@@ -62,14 +64,14 @@ import { createId } from '@aexoo-ai/spark-id'
 
 // Create a simple SecureId
 const secureId = createId()
-console.log(secureId.id)     // "ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(secureId.full)   // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.id)     // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(secureId.full)   // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 console.log(secureId.prefix) // undefined
 
 // Create with prefix
 const userSecureId = createId('USER')
-console.log(userSecureId.id)     // "ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(userSecureId.full)   // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userSecureId.id)     // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(userSecureId.full)   // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 console.log(userSecureId.prefix) // "USER"
 ```
 
@@ -91,13 +93,14 @@ const response = {
 }
 ```
 
-## `isValidId(id: string): boolean`
+## `isValidId(id: string, config?: Partial<SparkIdConfig>): boolean`
 
 Validates if a string is a properly formatted Spark-ID.
 
 ### Parameters
 
 - `id`: The string to validate
+- `config` (optional): Partial `SparkIdConfig` influencing validation (alphabet, entropyBits, separator, etc.)
 
 ### Returns
 
@@ -109,8 +112,8 @@ Validates if a string is a properly formatted Spark-ID.
 import { isValidId } from '@aexoo-ai/spark-id'
 
 // Valid IDs
-console.log(isValidId('ybndrfg8ejkmcpqxot1uwisza345h769')) // true
-console.log(isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')) // true
+console.log(isValidId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // true
+console.log(isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // true
 
 // Invalid IDs
 console.log(isValidId('invalid-id')) // false
@@ -134,13 +137,14 @@ The function checks that the ID:
 - **Speed**: ~10,000+ validations per second
 - **Memory**: Constant memory usage
 
-## `parseId(id: string): ParsedId`
+## `parseId(id: string, config?: Partial<SparkIdConfig>): ParsedId`
 
 Parses an ID string into its components.
 
 ### Parameters
 
 - `id`: The ID string to parse
+- `config` (optional): Partial `SparkIdConfig` for parsing (e.g., custom separator)
 
 ### Returns
 
@@ -156,20 +160,20 @@ A ParsedId object containing the parsed components.
 import { parseId } from '@aexoo-ai/spark-id'
 
 // Parse simple ID
-const parsed1 = parseId('ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed1 = parseId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 console.log(parsed1)
 // {
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 
 // Parse prefixed ID
-const parsed2 = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed2 = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 console.log(parsed2)
 // {
 //   prefix: 'USER',
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 ```
 
@@ -190,7 +194,7 @@ try {
 
 ```typescript
 // Extract prefix for routing
-const parsed = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 if (parsed.prefix === 'USER') {
   // Route to user handler
 } else if (parsed.prefix === 'TXN') {
@@ -198,8 +202,78 @@ if (parsed.prefix === 'USER') {
 }
 
 // Database queries
-const parsed = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 const query = `SELECT * FROM ${parsed.prefix.toLowerCase()}s WHERE id = '${parsed.id}'`
+```
+
+## Additional Functions
+
+### `generateIdSafe(prefix?: string, config?: Partial<SparkIdConfig>): { success: true; id: string } | { success: false; error: string }`
+
+Generate an ID and capture errors as a result object instead of throwing.
+
+```typescript
+import { generateIdSafe } from '@aexoo-ai/spark-id'
+
+const result = generateIdSafe('USER')
+if (result.success) {
+  console.log(result.id)
+} else {
+  console.error('Generation failed:', result.error)
+}
+```
+
+### `validateId(id: string, config?: Partial<SparkIdConfig>): SparkIdValidationResult`
+
+Validate an ID and get structured validation info.
+
+```typescript
+import { validateId } from '@aexoo-ai/spark-id'
+
+const result = validateId('USER_ABC')
+if (!result.isValid) {
+  console.error(result.code, result.error)
+}
+```
+
+### `generateMultiple(count: number, prefix?: string, config?: Partial<SparkIdConfig>): string[]`
+
+Generate multiple IDs at once.
+
+```typescript
+import { generateMultiple } from '@aexoo-ai/spark-id'
+
+const ids = generateMultiple(5, 'ORDER')
+```
+
+Throws `SparkIdError` if `count <= 0` or `count > 1000`.
+
+### `generateUnique(count: number, prefix?: string, config?: Partial<SparkIdConfig>): Set<string>`
+
+Generate a set of unique IDs (guards against rare collisions).
+
+```typescript
+import { generateUnique } from '@aexoo-ai/spark-id'
+
+const uniqueIds = generateUnique(100, 'TXN')
+```
+
+### Global configuration helpers
+
+These affect default behavior across the process. Per-call `config` overrides globals.
+
+- `configure(config: Partial<SparkIdConfig>): void`
+- `getConfig(): SparkIdConfig`
+- `resetConfig(): void`
+
+```typescript
+import { configure, getConfig, resetConfig, generateId } from '@aexoo-ai/spark-id'
+
+configure({ case: 'upper', separator: '_', entropyBits: 72 })
+const id = generateId('USER')
+
+console.log(getConfig())
+resetConfig()
 ```
 
 ## Type Definitions
@@ -216,11 +290,17 @@ interface ParsedId {
 
 Represents the parsed components of an ID.
 
-#### Properties
+### `SparkIdValidationResult`
 
-- `prefix?`: The prefix (if any)
-- `id`: The raw ID (without prefix)
-- `full`: The complete ID string
+```typescript
+interface SparkIdValidationResult {
+  isValid: boolean
+  error?: string
+  code?: string
+}
+```
+
+Detailed validation result with optional error and code.
 
 ## Performance Characteristics
 
@@ -244,7 +324,7 @@ console.log(`Generated ${ids.length} IDs in ${end - start}ms`)
 import { isValidId } from '@aexoo-ai/spark-id'
 
 // Performance test
-const testIds = Array.from({ length: 10000 }, () => 'USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const testIds = Array.from({ length: 10000 }, () => 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 
 const start = Date.now()
 const results = testIds.map(isValidId)
@@ -260,7 +340,7 @@ console.log(`Validated ${testIds.length} IDs in ${end - start}ms`)
 import { parseId } from '@aexoo-ai/spark-id'
 
 // Performance test
-const testIds = Array.from({ length: 10000 }, () => 'USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const testIds = Array.from({ length: 10000 }, () => 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 
 const start = Date.now()
 const results = testIds.map(parseId)

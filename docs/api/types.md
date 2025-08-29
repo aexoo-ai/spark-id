@@ -8,6 +8,72 @@ Complete reference for all TypeScript types and interfaces in the Spark-ID API.
 
 Represents the parsed components of an ID.
 
+### `SparkIdConfig`
+
+Controls ID generation, formatting, and validation behavior.
+
+```typescript
+interface SparkIdConfig {
+  // Core generation
+  alphabet?: string;
+  entropyBits?: number;
+  length?: number;
+
+  // Formatting
+  maxPrefixLength?: number;
+  separator?: string;
+  case?: 'upper' | 'lower' | 'mixed';
+
+  // Advanced
+  encoding?: 'base32' | 'base64' | 'hex' | 'custom';
+  timestamp?: boolean;
+  machineId?: string | number;
+}
+```
+
+### `SparkIdOptions`
+
+Wrapper for common call options.
+
+```typescript
+interface SparkIdOptions {
+  prefix?: string;
+  config?: Partial<SparkIdConfig>;
+}
+```
+
+### `SparkIdValidationResult`
+
+Detailed validation output.
+
+```typescript
+interface SparkIdValidationResult {
+  isValid: boolean;
+  error?: string;
+  code?: string;
+}
+```
+
+### `SparkIdStats`
+
+Statistics for an ID or configuration.
+
+```typescript
+interface SparkIdStats {
+  entropyBits: number;
+  collisionProbability: number;
+  maxIds: number;
+}
+```
+
+### `DEFAULT_CONFIG`
+
+Default configuration values used by Spark-ID.
+
+```typescript
+const DEFAULT_CONFIG: SparkIdConfig
+```
+
 ```typescript
 interface ParsedId {
   prefix?: string;
@@ -28,20 +94,20 @@ interface ParsedId {
 import { parseId } from '@aexoo-ai/spark-id';
 
 // Simple ID
-const parsed1: ParsedId = parseId('ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed1: ParsedId = parseId('YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 console.log(parsed1);
 // {
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 
 // Prefixed ID
-const parsed2: ParsedId = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed2: ParsedId = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 console.log(parsed2);
 // {
 //   prefix: 'USER',
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 ```
 
@@ -50,7 +116,7 @@ console.log(parsed2);
 ### `generateId`
 
 ```typescript
-function generateId(prefix?: string): string;
+function generateId(prefix?: string, config?: Partial<SparkIdConfig>): string;
 ```
 
 Generates a new cryptographically secure ID.
@@ -79,7 +145,7 @@ const ids: string[] = Array.from({ length: 5 }, () => generateId());
 ### `createId`
 
 ```typescript
-function createId(prefix?: string): SecureId;
+function createId(prefix?: string, config?: Partial<SparkIdConfig>): SecureId;
 ```
 
 Creates a new SecureId instance.
@@ -108,7 +174,7 @@ const secureIds: SecureId[] = Array.from({ length: 3 }, () => createId('TXN'));
 ### `isValidId`
 
 ```typescript
-function isValidId(id: string): boolean;
+function isValidId(id: string, config?: Partial<SparkIdConfig>): boolean;
 ```
 
 Validates if a string is a properly formatted Spark-ID.
@@ -127,7 +193,7 @@ Validates if a string is a properly formatted Spark-ID.
 import { isValidId } from '@aexoo-ai/spark-id';
 
 // Type inference
-const isValid: boolean = isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const isValid: boolean = isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 
 // Array validation
 const ids: string[] = ['id1', 'id2', 'id3'];
@@ -145,7 +211,7 @@ function processId(id: string): void {
 ### `parseId`
 
 ```typescript
-function parseId(id: string): ParsedId;
+function parseId(id: string, config?: Partial<SparkIdConfig>): ParsedId;
 ```
 
 Parses an ID string into its components.
@@ -168,11 +234,11 @@ Parses an ID string into its components.
 import { parseId } from '@aexoo-ai/spark-id';
 
 // Type inference
-const parsed: ParsedId = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed: ParsedId = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 
 // Destructuring with types
 const { prefix, id, full }: ParsedId = parseId(
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 
 // Type-safe access
@@ -193,17 +259,29 @@ class SecureId {
   public readonly prefix?: string;
   public readonly full: string;
 
-  constructor(id?: string, prefix?: string);
+  constructor(id?: string, prefix?: string, config?: Partial<SparkIdConfig>);
 
   equals(other: SecureId | string): boolean;
   toString(): string;
 
-  static generate(prefix?: string): string;
-  static create(prefix?: string): SecureId;
-  static parse(idString: string): ParsedId;
-  static isValid(idString: string): boolean;
+  static generate(prefix?: string, config?: Partial<SparkIdConfig>): string;
+  static create(prefix?: string, config?: Partial<SparkIdConfig>): SecureId;
+  static parse(idString: string, config?: Partial<SparkIdConfig>): ParsedId;
+  static isValid(idString: string, config?: Partial<SparkIdConfig>): boolean;
   static isValidRawId(rawId: string): boolean;
-  static generateRaw(): string;
+  static generateRaw(config?: Partial<SparkIdConfig>): string;
+
+  // Configuration helpers
+  static configure(config: Partial<SparkIdConfig>): void;
+  static getConfig(): SparkIdConfig;
+  static resetConfig(): void;
+
+  // Instance helpers
+  getEntropyBits(): number;
+  hasPrefix(): boolean;
+  getStats(): SparkIdStats;
+  validate(): SparkIdValidationResult;
+  generateSimilar(): SecureId;
 }
 ```
 
@@ -224,7 +302,7 @@ const full: string = secureId.full;
 // equals method
 const result: boolean = secureId.equals(otherSecureId);
 const result2: boolean = secureId.equals(
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 
 // toString method
@@ -238,13 +316,13 @@ const stringValue: string = secureId.toString();
 const generatedId: string = SecureId.generate('USER');
 const newInstance: SecureId = SecureId.create('TXN');
 const parsed: ParsedId = SecureId.parse(
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 const isValid: boolean = SecureId.isValid(
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 const isValidRaw: boolean = SecureId.isValidRawId(
-  'ybndrfg8ejkmcpqxot1uwisza345h769'
+  'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 const rawId: string = SecureId.generateRaw();
 ```
@@ -375,7 +453,7 @@ declare module '@aexoo-ai/spark-id' {
 }
 
 // Usage
-const parsed = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 parsed.isValid = true;
 parsed.createdAt = new Date();
 ```
@@ -394,15 +472,15 @@ type ExtractPrefix<T extends string> = T extends `${infer P}_${string}`
 type ExtractId<T extends string> = T extends `${string}_${infer I}` ? I : T;
 
 // Usage
-type UserPrefix = ExtractPrefix<'USER_ybndrfg8ejkmcpqxot1uwisza345h769'>; // 'USER'
-type UserId = ExtractId<'USER_ybndrfg8ejkmcpqxot1uwisza345h769'>; // 'ybndrfg8ejkmcpqxot1uwisza345h769'
+type UserPrefix = ExtractPrefix<'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'>; // 'USER'
+type UserId = ExtractId<'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'>; // 'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 ```
 
 ### Type Assertions
 
 ```typescript
 // Type assertion for known valid IDs
-const knownValidId = 'USER_ybndrfg8ejkmcpqxot1uwisza345h769' as const;
+const knownValidId = 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769' as const;
 const parsed = parseId(knownValidId); // TypeScript knows this won't throw
 
 // Type assertion for prefix

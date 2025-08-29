@@ -12,8 +12,8 @@ The simplest way to validate an ID:
 import { isValidId } from '@aexoo-ai/spark-id';
 
 // Valid IDs
-console.log(isValidId('ybndrfg8ejkmcpqxot1uwisza345h769')); // true
-console.log(isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')); // true
+console.log(isValidId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
+console.log(isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
 
 // Invalid IDs
 console.log(isValidId('invalid-id')); // false
@@ -27,8 +27,19 @@ console.log(isValidId('abc123def456ghi789jkl012mno345pqr678stu901vwx234yz0')); /
 import { SecureId } from '@aexoo-ai/spark-id';
 
 // Static validation methods
-console.log(SecureId.isValid('ybndrfg8ejkmcpqxot1uwisza345h769')); // true
-console.log(SecureId.isValidRawId('ybndrfg8ejkmcpqxot1uwisza345h769')); // true
+console.log(SecureId.isValid('YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
+console.log(SecureId.isValidRawId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
+```
+
+## Detailed validation
+
+Use `validateId()` for structured results with error codes:
+
+```typescript
+import { validateId } from '@aexoo-ai/spark-id'
+
+const result = validateId('invalid-id')
+// { isValid: false, error: 'Invalid ID format', code: 'INVALID_FORMAT' }
 ```
 
 ## What Gets Validated
@@ -57,9 +68,9 @@ The following characters are **not allowed**:
 
 ```typescript
 // ✅ Valid formats
-'ybndrfg8ejkmcpqxot1uwisza345h769'; // Simple ID
-'USER_ybndrfg8ejkmcpqxot1uwisza345h769'; // Prefixed ID
-'ABC123_ybndrfg8ejkmcpqxot1uwisza345h769'; // Multi-character prefix
+'YBNDRFG8EJKMCPQXOT1UWISZA345H769'; // Simple ID
+'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'; // Prefixed ID
+'ABC123_YBNDRFG8EJKMCPQXOT1UWISZA345H769'; // Multi-character prefix
 
 // ❌ Invalid formats
 'abc123def456ghi789jkl012mno345pqr678stu901vwx234yz0'; // Contains 0
@@ -88,7 +99,7 @@ function validateUserInput(input: string): boolean {
 }
 
 // Usage
-console.log(validateUserInput('USER_ybndrfg8ejkmcpqxot1uwisza345h769')); // true
+console.log(validateUserInput('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
 console.log(validateUserInput('invalid-id')); // false
 console.log(validateUserInput('')); // false
 console.log(validateUserInput(null)); // false
@@ -171,8 +182,8 @@ function safeParseId(id: string) {
 }
 
 // Usage
-const result1 = safeParseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
-// { prefix: 'USER', id: 'ybndrfg8ejkmcpqxot1uwisza345h769', full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769' }
+const result1 = safeParseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
+// { prefix: 'USER', id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769', full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769' }
 
 const result2 = safeParseId('invalid-id');
 // null
@@ -207,7 +218,7 @@ function validateIdWithMessage(id: string): {
 }
 
 // Usage
-const result1 = validateIdWithMessage('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const result1 = validateIdWithMessage('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 // { valid: true, message: 'ID is valid' }
 
 const result2 = validateIdWithMessage('invalid-id');
@@ -238,10 +249,10 @@ function validateIds(ids: string[]): { valid: string[]; invalid: string[] } {
 
 // Usage
 const ids = [
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769',
-  'TXN_ybndrfg8ejkmcpqxot1uwisza345h769',
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+  'TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
   'invalid-id',
-  'ORDER_ybndrfg8ejkmcpqxot1uwisza345h769',
+  'ORDER_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
 ];
 
 const result = validateIds(ids);
@@ -255,9 +266,9 @@ console.log(result.invalid); // ['invalid-id']
 import { isValidId } from '@aexoo-ai/spark-id';
 
 const ids = [
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769',
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
   'invalid-id',
-  'TXN_ybndrfg8ejkmcpqxot1uwisza345h769',
+  'TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
 ];
 
 const validIds = ids.filter(isValidId);
@@ -276,7 +287,7 @@ import { isValidId } from '@aexoo-ai/spark-id';
 // Performance test
 const testIds = Array.from(
   { length: 10000 },
-  () => 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  () => 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 
 const start = Date.now();

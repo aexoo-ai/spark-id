@@ -13,7 +13,7 @@ spark-id
 **Output:**
 
 ```
-ybndrfg8ejkmcpqxot1uwisza345h769
+YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ### Generate with Prefix
@@ -25,7 +25,7 @@ spark-id -p USER
 **Output:**
 
 ```
-USER_ybndrfg8ejkmcpqxot1uwisza345h769
+USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ### Generate Multiple IDs
@@ -37,7 +37,7 @@ spark-id -c 5
 **Output:**
 
 ```
-ybndrfg8ejkmcpqxot1uwisza345h769
+YBNDRFG8EJKMCPQXOT1UWISZA345H769
 abc123def456ghi789
 xyz789uvw012mno345
 pqr123stu456vwx789
@@ -47,7 +47,7 @@ def456ghi789jkl012
 ### Validate an ID
 
 ```bash
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 **Output:**
@@ -59,7 +59,7 @@ true
 ### Parse an ID
 
 ```bash
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 **Output:**
@@ -67,8 +67,8 @@ spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
 ```json
 {
   "prefix": "USER",
-  "id": "ybndrfg8ejkmcpqxot1uwisza345h769",
-  "full": "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+  "id": "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+  "full": "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 }
 ```
 
@@ -83,7 +83,7 @@ spark-id -p USER -c 3
 **Output:**
 
 ```
-USER_ybndrfg8ejkmcpqxot1uwisza345h769
+USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 USER_abc123def456ghi789
 USER_xyz789uvw012mno345
 ```
@@ -91,28 +91,28 @@ USER_xyz789uvw012mno345
 ### JSON Output with Prefix
 
 ```bash
-spark-id -p USER --json
+spark-id -p USER -f json
 ```
 
 **Output:**
 
 ```json
 {
-  "id": "USER_ybndrfg8ejkmcpqxot1uwisza345h769",
+  "id": "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769",
   "prefix": "USER"
 }
 ```
 
-### Compact Output
+### CSV Output
 
 ```bash
-spark-id -c 5 --compact
+spark-id -c 5 -f csv
 ```
 
 **Output:**
 
 ```
-ybndrfg8ejkmcpqxot1uwisza345h769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
+YBNDRFG8EJKMCPQXOT1UWISZA345H769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
 ```
 
 ## Advanced Usage Patterns
@@ -184,7 +184,7 @@ spark-id -p PRODUCT -c 8
 ```bash
 # Create a file with IDs to validate
 cat > ids.txt << EOF
-USER_ybndrfg8ejkmcpqxot1uwisza345h769
+USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 TXN_abc123def456ghi789
 invalid-id
 ORDER_xyz789uvw012mno345
@@ -206,12 +206,12 @@ done < ids.txt
 
 ```bash
 # Extract prefix from parsed ID
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769 | jq -r '.prefix'
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769 | jq -r '.prefix'
 # Output: USER
 
 # Extract ID without prefix
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769 | jq -r '.id'
-# Output: ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769 | jq -r '.id'
+# Output: YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 #### Use with sed for Text Processing
@@ -220,7 +220,7 @@ spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769 | jq -r '.id'
 # Add prefix to each line
 spark-id -c 5 | sed 's/^/ID: /'
 # Output:
-# ID: ybndrfg8ejkmcpqxot1uwisza345h769
+# ID: YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # ID: abc123def456ghi789
 # ID: xyz789uvw012mno345
 # ID: pqr123stu456vwx789
@@ -229,7 +229,7 @@ spark-id -c 5 | sed 's/^/ID: /'
 # Replace underscores with spaces
 spark-id -p USER -c 3 | sed 's/_/ /g'
 # Output:
-# USER ybndrfg8ejkmcpqxot1uwisza345h769
+# USER YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # USER abc123def456ghi789
 # USER xyz789uvw012mno345
 ```
@@ -252,7 +252,7 @@ spark-id -c 20 | awk 'length($0) == 15 {print $0}'
 
 ```bash
 spark-id
-# ybndrfg8ejkmcpqxot1uwisza345h769
+# YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ### JSON Format
@@ -260,31 +260,31 @@ spark-id
 ```bash
 # Simple ID
 spark-id --json
-# {"id": "ybndrfg8ejkmcpqxot1uwisza345h769"}
+# {"id": "YBNDRFG8EJKMCPQXOT1UWISZA345H769"}
 
 # With prefix
 spark-id -p USER --json
-# {"id": "USER_ybndrfg8ejkmcpqxot1uwisza345h769", "prefix": "USER"}
+# {"id": "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769", "prefix": "USER"}
 
 # Multiple IDs
 spark-id -c 3 --json
 # [
-#   {"id": "ybndrfg8ejkmcpqxot1uwisza345h769"},
+#   {"id": "YBNDRFG8EJKMCPQXOT1UWISZA345H769"},
 #   {"id": "abc123def456ghi789"},
 #   {"id": "xyz789uvw012mno345"}
 # ]
 ```
 
-### Compact Format
+### CSV Output
 
 ```bash
 # Single ID
-spark-id --compact
-# ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -f csv
+# YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # Multiple IDs
-spark-id -c 5 --compact
-# ybndrfg8ejkmcpqxot1uwisza345h769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
+spark-id -c 5 -f csv
+# YBNDRFG8EJKMCPQXOT1UWISZA345H769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
 ```
 
 ## Error Handling

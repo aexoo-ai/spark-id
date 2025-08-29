@@ -9,7 +9,7 @@ The main class for working with secure IDs. Provides both instance methods and s
 ### Constructor
 
 ```typescript
-new SecureId(id?: string, prefix?: string)
+new SecureId(id?: string, prefix?: string, config?: Partial<SparkIdConfig>)
 ```
 
 #### Parameters
@@ -29,10 +29,10 @@ const secureId1 = new SecureId()
 const secureId2 = new SecureId(undefined, 'USER')
 
 // Create from existing ID
-const secureId3 = new SecureId('ybndrfg8ejkmcpqxot1uwisza345h769')
+const secureId3 = new SecureId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 
 // Create from existing ID with prefix
-const secureId4 = new SecureId('ybndrfg8ejkmcpqxot1uwisza345h769', 'USER')
+const secureId4 = new SecureId('YBNDRFG8EJKMCPQXOT1UWISZA345H769', 'USER')
 ```
 
 ### Properties
@@ -43,7 +43,7 @@ The raw ID (without prefix).
 
 ```typescript
 const secureId = new SecureId(undefined, 'USER')
-console.log(secureId.id) // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.id) // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 #### `prefix?: string`
@@ -64,10 +64,10 @@ The complete ID string.
 
 ```typescript
 const secureId = new SecureId(undefined, 'USER')
-console.log(secureId.full) // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.full) // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 const simpleId = new SecureId()
-console.log(simpleId.full) // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(simpleId.full) // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Instance Methods
@@ -113,10 +113,10 @@ The complete ID string.
 import { SecureId } from '@aexoo-ai/spark-id'
 
 const secureId = new SecureId(undefined, 'USER')
-console.log(secureId.toString()) // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.toString()) // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Implicit string conversion
-const idString = `ID: ${secureId}` // "ID: USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+const idString = `ID: ${secureId}` // "ID: USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Static Methods
@@ -140,14 +140,14 @@ import { SecureId } from '@aexoo-ai/spark-id'
 
 // Generate simple ID
 const id = SecureId.generate()
-console.log(id) // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(id) // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate with prefix
 const userId = SecureId.generate('USER')
-console.log(userId) // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId) // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
-#### `SecureId.create(prefix?: string): SecureId`
+#### `SecureId.create(prefix?: string, config?: Partial<SparkIdConfig>): SecureId`
 
 Static method to create a new SecureId instance.
 
@@ -166,14 +166,15 @@ import { SecureId } from '@aexoo-ai/spark-id'
 
 // Create simple instance
 const secureId = SecureId.create()
-console.log(secureId.full) // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.full) // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Create with prefix
 const userSecureId = SecureId.create('USER')
-console.log(userSecureId.full) // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userSecureId.full) // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 #### `SecureId.parse(idString: string): ParsedId`
+#### `SecureId.parse(idString: string, config?: Partial<SparkIdConfig>): ParsedId`
 
 Static method to parse an ID string.
 
@@ -195,24 +196,24 @@ A ParsedId object containing the parsed components.
 import { SecureId } from '@aexoo-ai/spark-id'
 
 // Parse simple ID
-const parsed1 = SecureId.parse('ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed1 = SecureId.parse('YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 console.log(parsed1)
 // {
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 
 // Parse prefixed ID
-const parsed2 = SecureId.parse('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed2 = SecureId.parse('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 console.log(parsed2)
 // {
 //   prefix: 'USER',
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 ```
 
-#### `SecureId.isValid(idString: string): boolean`
+#### `SecureId.isValid(idString: string, config?: Partial<SparkIdConfig>): boolean`
 
 Static method to validate an ID string.
 
@@ -230,8 +231,8 @@ Static method to validate an ID string.
 import { SecureId } from '@aexoo-ai/spark-id'
 
 // Valid IDs
-console.log(SecureId.isValid('ybndrfg8ejkmcpqxot1uwisza345h769')) // true
-console.log(SecureId.isValid('USER_ybndrfg8ejkmcpqxot1uwisza345h769')) // true
+console.log(SecureId.isValid('YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // true
+console.log(SecureId.isValid('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // true
 
 // Invalid IDs
 console.log(SecureId.isValid('invalid-id')) // false
@@ -256,14 +257,40 @@ Static method to validate a raw ID (without prefix).
 import { SecureId } from '@aexoo-ai/spark-id'
 
 // Valid raw IDs
-console.log(SecureId.isValidRawId('ybndrfg8ejkmcpqxot1uwisza345h769')) // true
+console.log(SecureId.isValidRawId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // true
 
 // Invalid raw IDs
-console.log(SecureId.isValidRawId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')) // false (has prefix)
+console.log(SecureId.isValidRawId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // false (has prefix)
 console.log(SecureId.isValidRawId('invalid-id')) // false
 ```
 
-#### `SecureId.generateRaw(): string`
+#### `SecureId.generateRaw(config?: Partial<SparkIdConfig>): string`
+
+#### Configuration (static)
+
+`SecureId` exposes process-wide configuration helpers:
+
+- `configure(config: Partial<SparkIdConfig>): void`
+- `getConfig(): SparkIdConfig`
+- `resetConfig(): void`
+
+```typescript
+import { SecureId } from '@aexoo-ai/spark-id'
+
+SecureId.configure({ separator: '-', case: 'lower' })
+const id = SecureId.generate('user') // "user-..."
+
+const current = SecureId.getConfig()
+SecureId.resetConfig()
+```
+
+#### Instance helpers
+
+- `getEntropyBits(): number`
+- `hasPrefix(): boolean`
+- `getStats(): SparkIdStats`
+- `validate(): SparkIdValidationResult`
+- `generateSimilar(): SecureId`
 
 Static method to generate a raw ID (without prefix).
 
@@ -277,7 +304,7 @@ A string containing the generated raw ID.
 import { SecureId } from '@aexoo-ai/spark-id'
 
 const rawId = SecureId.generateRaw()
-console.log(rawId) // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(rawId) // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ## Usage Patterns

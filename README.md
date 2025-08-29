@@ -28,14 +28,40 @@ Spark-ID generates cryptographically secure, URL-safe identifiers that are perfe
 npm install @aexoo-ai/spark-id
 ```
 
+### Multiple Import Options
+
+```typescript
+// ESM (recommended)
+import { generateId, sparkId, isValidId, parseId } from '@aexoo-ai/spark-id';
+
+// CommonJS
+const {
+  generateId,
+  sparkId,
+  isValidId,
+  parseId,
+} = require('@aexoo-ai/spark-id');
+
+// Specific entry points
+import { generateId } from '@aexoo-ai/spark-id/esm';
+const { generateId } = require('@aexoo-ai/spark-id/cjs');
+
+// Spark-ID specific entry point
+import { sparkId } from '@aexoo-ai/spark-id/spark-id';
+```
+
 ### Basic Usage
 
 ```typescript
-import { generateId, isValidId, parseId } from '@aexoo-ai/spark-id';
+import { generateId, sparkId, isValidId, parseId } from '@aexoo-ai/spark-id';
 
 // Generate a simple ID
 const id = generateId();
 console.log(id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+
+// Alternative function name
+const id2 = sparkId();
+console.log(id2); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate with prefix
 const userId = generateId('USER');
@@ -92,6 +118,124 @@ const transaction = {
   amount: 100.5,
   status: 'completed',
 };
+```
+
+### Enhanced Features
+
+```typescript
+import {
+  generateId,
+  generateIdSafe,
+  validateId,
+  generateMultiple,
+  generateUnique,
+  SecureId,
+} from '@aexoo-ai/spark-id';
+
+// Safe generation with error handling
+const result = generateIdSafe('USER');
+if (result.success) {
+  console.log('Generated ID:', result.id);
+} else {
+  console.error('Error:', result.error);
+}
+
+// Detailed validation
+const validation = validateId('USER_123456789');
+console.log(validation);
+// { isValid: false, error: 'Invalid ID format', code: 'INVALID_FORMAT' }
+
+// Generate multiple IDs
+const ids = generateMultiple(5, 'BATCH');
+console.log(ids); // Array of 5 IDs
+
+// Generate unique IDs
+const uniqueIds = generateUnique(10, 'UNIQUE');
+console.log(uniqueIds); // Set of 10 unique IDs
+
+// Using the SecureId class
+const secureId = new SecureId(undefined, 'CLASS');
+console.log(secureId.toString()); // "CLASS_..."
+console.log(secureId.getStats()); // Statistics about the ID
+console.log(secureId.validate()); // Validation result
+```
+
+### Configuration System
+
+```typescript
+import {
+  generateId,
+  configure,
+  getConfig,
+  resetConfig,
+} from '@aexoo-ai/spark-id';
+
+// Global configuration
+configure({
+  maxPrefixLength: 10,
+  separator: '-',
+  case: 'lower',
+  entropyBits: 48,
+});
+
+// Generate with global config
+const id1 = generateId('USER'); // "user-abc123"
+
+// Per-call configuration (overrides global)
+const id2 = generateId('TEST', {
+  alphabet: '0123456789ABCDEFGHIJKLMNOPQRSTUV',
+  entropyBits: 32,
+  separator: '=',
+  case: 'upper',
+}); // "TEST=ABC123"
+
+// Get current configuration
+console.log(getConfig());
+
+// Reset to defaults
+resetConfig();
+```
+
+#### Configuration Options
+
+| Option            | Type                                        | Default                              | Description                                   |
+| ----------------- | ------------------------------------------- | ------------------------------------ | --------------------------------------------- |
+| `alphabet`        | `string`                                    | `'yvndrfg9ejkmcpqxwt2uwxsza345h769'` | Character set for encoding (must be 32 chars) |
+| `entropyBits`     | `number`                                    | `72`                                 | Security level in bits (9 bytes)              |
+| `maxPrefixLength` | `number`                                    | `20`                                 | Maximum prefix length                         |
+| `separator`       | `string`                                    | `'_'`                                | Prefix separator character                    |
+| `case`            | `'upper' \| 'lower' \| 'mixed'`             | `'upper'`                            | Output case formatting                        |
+| `encoding`        | `'base32' \| 'base64' \| 'hex' \| 'custom'` | `'base32'`                           | Encoding method                               |
+| `timestamp`       | `boolean`                                   | `false`                              | Include timestamp component                   |
+| `machineId`       | `string \| number`                          | `undefined`                          | Machine/instance identifier                   |
+
+### Error Handling
+
+```typescript
+import {
+  generateId,
+  SparkIdError,
+  InvalidPrefixError,
+  InvalidIdError,
+} from '@aexoo-ai/spark-id';
+
+try {
+  const id = generateId('invalid-prefix!');
+} catch (error) {
+  if (error instanceof InvalidPrefixError) {
+    console.error('Invalid prefix:', error.message);
+    console.error('Error code:', error.code); // 'INVALID_PREFIX'
+  }
+}
+
+try {
+  const parsed = parseId('invalid-id!');
+} catch (error) {
+  if (error instanceof InvalidIdError) {
+    console.error('Invalid ID:', error.message);
+    console.error('Error code:', error.code); // 'INVALID_ID'
+  }
+}
 ```
 
 ### API Endpoints

@@ -21,10 +21,10 @@ Add a prefix to generated IDs.
 
 ```bash
 spark-id -p USER
-# Output: USER_ybndrfg8ejkmcpqxot1uwisza345h769
+# Output: USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 spark-id --prefix TXN
-# Output: TXN_ybndrfg8ejkmcpqxot1uwisza345h769
+# Output: TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 **Validation:**
@@ -39,7 +39,7 @@ Generate multiple IDs.
 
 **Type:** `number`  
 **Default:** `1`  
-**Range:** `1` to `10000`
+**Range:** `1` to `1000`
 
 **Examples:**
 
@@ -57,8 +57,8 @@ spark-id --count 10
 spark-id -c 0
 # Error: Count must be a positive integer
 
-spark-id -c 10001
-# Error: Count must be between 1 and 10000
+spark-id -c 1001
+# Error: Count must be between 1 and 1000
 ```
 
 ### `-v, --validate <id>`
@@ -71,7 +71,7 @@ Validate an existing ID.
 **Examples:**
 
 ```bash
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Output: true
 
 spark-id --validate invalid-id
@@ -88,19 +88,19 @@ Parse an ID and display its components.
 **Examples:**
 
 ```bash
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Output:
 # {
 #   "prefix": "USER",
-#   "id": "ybndrfg8ejkmcpqxot1uwisza345h769",
-#   "full": "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+#   "id": "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+#   "full": "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 # }
 
-spark-id --parse ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Output:
 # {
-#   "id": "ybndrfg8ejkmcpqxot1uwisza345h769",
-#   "full": "ybndrfg8ejkmcpqxot1uwisza345h769"
+#   "id": "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+#   "full": "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 # }
 ```
 
@@ -111,71 +111,53 @@ spark-id --parse invalid-id
 # Error: Invalid ID format: invalid-id
 ```
 
-### `--json`
+### `-f, --format <format>`
 
-Output in JSON format.
+Select output format: `text` (default), `json`, or `csv`.
 
-**Type:** `boolean`  
-**Default:** `false`
+**Type:** `string`  
+**Default:** `text`
 
 **Examples:**
 
 ```bash
-spark-id --json
-# Output: {"id": "ybndrfg8ejkmcpqxot1uwisza345h769"}
+# JSON output
+spark-id -f json
+# Output: "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
-spark-id -p USER --json
-# Output: {"id": "USER_ybndrfg8ejkmcpqxot1uwisza345h769", "prefix": "USER"}
+spark-id -p USER -f json
+# Output: "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
-spark-id -c 3 --json
+spark-id -c 3 -f json
 # Output: [
-#   {"id": "ybndrfg8ejkmcpqxot1uwisza345h769"},
-#   {"id": "abc123def456ghi789"},
-#   {"id": "xyz789uvw012mno345"}
+#   "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+#   "abc123def456ghi789",
+#   "xyz789uvw012mno345"
 # ]
+
+# CSV output
+spark-id -c 5 -f csv
+# Output: YBNDRFG8EJKMCPQXOT1UWISZA345H769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
 ```
 
-### `--compact`
+Note: Use `-f csv` for comma-separated output.
 
-Output multiple IDs in compact format (comma-separated).
-
-**Type:** `boolean`  
-**Default:** `false`
-
-**Examples:**
-
-```bash
-spark-id -c 5 --compact
-# Output: ybndrfg8ejkmcpqxot1uwisza345h769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
-
-spark-id -p USER -c 3 --compact
-# Output: USER_ybndrfg8ejkmcpqxot1uwisza345h769,USER_abc123def456ghi789,USER_xyz789uvw012mno345
-```
-
-### `--version`
-
-Display version information.
-
-**Type:** `boolean`
-
-**Example:**
-
-```bash
-spark-id --version
-# Output: 1.0.0
-```
-
-### `-h, --help`
+### `--help, -h`
 
 Display help information.
 
-**Type:** `boolean`
-
-**Example:**
-
 ```bash
 spark-id --help
-# Output: Complete help text with all options
+spark-id -h
+```
+
+### `--examples, -e`
+
+Show usage examples.
+
+```bash
+spark-id --examples
+spark-id -e
 ```
 
 ## Option Combinations
@@ -187,13 +169,13 @@ spark-id --help
 spark-id -p USER -c 5
 
 # Generate multiple IDs with JSON output
-spark-id -c 3 --json
+spark-id -c 3 -f json
 
-# Generate multiple prefixed IDs with compact output
-spark-id -p TXN -c 10 --compact
+# Generate multiple prefixed IDs with CSV output
+spark-id -p TXN -c 10 -f csv
 
-# Generate multiple IDs with JSON and compact output
-spark-id -c 5 --json --compact
+# Generate multiple IDs as CSV
+spark-id -c 5 -f csv
 ```
 
 ### Invalid Combinations
@@ -220,12 +202,12 @@ When using `--validate` or `--parse`, you can provide the ID as a positional arg
 
 ```bash
 # These are equivalent
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # These are equivalent
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ## Environment Variables
@@ -239,10 +221,10 @@ Set a default prefix for all generated IDs.
 ```bash
 export SPARK_ID_PREFIX=USER
 spark-id
-# Output: USER_ybndrfg8ejkmcpqxot1uwisza345h769
+# Output: USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 spark-id -p TXN
-# Output: TXN_ybndrfg8ejkmcpqxot1uwisza345h769 (overrides environment)
+# Output: TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769 (overrides environment)
 ```
 
 ### `SPARK_ID_COUNT`
@@ -329,7 +311,7 @@ spark-id -p USER -c 10 > test-users.txt
 spark-id -p TXN -c 20 > test-transactions.txt
 
 # Quick validation
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ### Scripting

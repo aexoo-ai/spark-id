@@ -51,13 +51,15 @@ Express.js integration for web applications:
 ### Basic ID Generation
 
 ```typescript
-import { generateId } from '@aexoo-ai/spark-id';
+import { generateId, configure } from '@aexoo-ai/spark-id';
+
+configure({ case: 'upper', separator: '_' })
 
 // Simple ID
-const id = generateId(); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+const id = generateId(); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // With prefix
-const userId = generateId('USER'); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+const userId = generateId('USER'); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Database Operations
@@ -143,10 +145,10 @@ spark-id -p USER
 spark-id -c 5
 
 # Validate an ID
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # Parse an ID
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ## Common Patterns

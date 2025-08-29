@@ -12,7 +12,7 @@ Generate a basic ID without any prefix:
 import { generateId } from '@aexoo-ai/spark-id';
 
 const id = generateId();
-console.log(id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Prefixed IDs
@@ -24,9 +24,9 @@ const userId = generateId('USER');
 const txnId = generateId('TXN');
 const orderId = generateId('ORDER');
 
-console.log(userId); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(txnId); // "TXN_ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(orderId); // "ORDER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(txnId); // "TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(orderId); // "ORDER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ## Using the SecureId Class
@@ -50,9 +50,9 @@ const secureId4 = createId('TXN');
 ```typescript
 const secureId = new SecureId(undefined, 'USER');
 
-console.log(secureId.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 console.log(secureId.prefix); // "USER"
-console.log(secureId.full); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.full); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ## Bulk Generation
@@ -65,6 +65,11 @@ const ids = Array.from({ length: 10 }, () => generateId());
 
 // Generate multiple prefixed IDs
 const userIds = Array.from({ length: 5 }, () => generateId('USER'));
+
+// Convenience helpers
+import { generateMultiple, generateUnique } from '@aexoo-ai/spark-id'
+const orderIds = generateMultiple(10, 'ORDER')
+const uniqueTxnIds = generateUnique(100, 'TXN')
 
 // Using SecureId class
 const secureIds = Array.from({ length: 3 }, () => createId('TXN'));
@@ -111,7 +116,7 @@ Spark-ID uses Z-Base32 encoding which:
 
 - **Optional**: You can generate IDs without prefixes
 - **Single underscore separator**: `PREFIX_ID`
-- **Case-sensitive**: `USER` and `user` are different
+- **Case handling**: defaults to uppercase; configurable via `case: 'upper' | 'lower' | 'mixed'`
 - **No spaces**: Use underscores or hyphens instead
 
 ## Performance

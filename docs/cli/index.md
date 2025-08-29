@@ -26,7 +26,7 @@ spark-id -p USER
 spark-id -c 5
 
 # Validate an ID
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ## Installation
@@ -57,16 +57,16 @@ npx spark-id
 ```bash
 # Simple ID generation
 spark-id
-# Output: ybndrfg8ejkmcpqxot1uwisza345h769
+# Output: YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # With prefix
 spark-id -p USER
-# Output: USER_ybndrfg8ejkmcpqxot1uwisza345h769
+# Output: USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # Multiple IDs
 spark-id -c 3
 # Output:
-# ybndrfg8ejkmcpqxot1uwisza345h769
+# YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # abc123def456ghi789
 # xyz789uvw012mno345
 ```
@@ -75,7 +75,7 @@ spark-id -c 3
 
 ```bash
 # Validate a single ID
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Output: true
 
 # Validate invalid ID
@@ -87,12 +87,12 @@ spark-id -v invalid-id
 
 ```bash
 # Parse an ID to see its components
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Output:
 # {
 #   "prefix": "USER",
-#   "id": "ybndrfg8ejkmcpqxot1uwisza345h769",
-#   "full": "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+#   "id": "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+#   "full": "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 # }
 ```
 
@@ -130,7 +130,7 @@ cat ids.txt | xargs -I {} spark-id -v {}
 
 ```bash
 # Use with jq for JSON processing
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769 | jq '.prefix'
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769 | jq '.prefix'
 
 # Use with sed for text processing
 spark-id -c 5 | sed 's/^/ID: /'
@@ -145,24 +145,24 @@ spark-id -p USER -c 100 | awk '{print length($0)}'
 
 ```bash
 spark-id
-# ybndrfg8ejkmcpqxot1uwisza345h769
+# YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ### JSON Output
 
 ```bash
-spark-id --json
-# {"id": "ybndrfg8ejkmcpqxot1uwisza345h769"}
+spark-id -f json
+# "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
-spark-id -p USER --json
-# {"id": "USER_ybndrfg8ejkmcpqxot1uwisza345h769", "prefix": "USER"}
+spark-id -p USER -f json
+# "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
-### Compact Output
+### CSV Output
 
 ```bash
-spark-id -c 5 --compact
-# ybndrfg8ejkmcpqxot1uwisza345h769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
+spark-id -c 5 -f csv
+# YBNDRFG8EJKMCPQXOT1UWISZA345H769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
 ```
 
 ## Error Handling
@@ -191,9 +191,7 @@ spark-id --parse invalid-id
 ### Exit Codes
 
 - `0`: Success
-- `1`: General error
-- `2`: Invalid arguments
-- `3`: Validation failed
+- `1`: Error or validation failed
 
 ## Performance
 

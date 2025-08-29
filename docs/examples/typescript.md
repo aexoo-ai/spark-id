@@ -7,7 +7,7 @@ Type-safe usage patterns with full TypeScript support.
 ### Basic Types
 
 ```typescript
-import { generateId, isValidId, parseId, ParsedId } from '@aexoo-ai/spark-id';
+import { generateId, isValidId, parseId, ParsedId, SparkIdConfig } from '@aexoo-ai/spark-id';
 
 // Explicit type annotations
 const id: string = generateId();
@@ -83,7 +83,7 @@ function validateIdType<T extends string>(
 }
 
 // Usage
-const testId = 'USER_ybndrfg8ejkmcpqxot1uwisza345h769';
+const testId = 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769';
 if (validateIdType(testId, 'USER')) {
   // TypeScript knows this is a valid user ID
   console.log('Valid user ID:', testId);
@@ -293,10 +293,10 @@ function getEntityType<T extends string>(id: T): IdType<T> {
 }
 
 // Usage with type inference
-const userId = 'USER_ybndrfg8ejkmcpqxot1uwisza345h769';
+const userId = 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769';
 const userType = getEntityType(userId); // Type: 'user'
 
-const txnId = 'TXN_ybndrfg8ejkmcpqxot1uwisza345h769';
+const txnId = 'TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769';
 const txnType = getEntityType(txnId); // Type: 'transaction'
 ```
 
@@ -396,7 +396,7 @@ function safeParseId<T extends string>(
 }
 
 // Usage with type narrowing
-const result = safeParseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769', 'USER');
+const result = safeParseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769', 'USER');
 
 if (result.success) {
   // TypeScript knows result.data is ParsedId
