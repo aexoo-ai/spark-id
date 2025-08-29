@@ -194,7 +194,7 @@ async function basicCrudExample() {
     email: 'john@example.com',
     age: 30,
   });
-  console.log('Created user:', user.id); // USER_ybndrfg8ejkmcpqxot1uwisza345h769
+  console.log('Created user:', user.id); // USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
   // Find the user
   const foundUser = await db.findUser(user.id);
@@ -210,7 +210,7 @@ async function basicCrudExample() {
     amount: 100.5,
     status: 'completed',
   });
-  console.log('Created transaction:', transaction.id); // TXN_ybndrfg8ejkmcpqxot1uwisza345h769
+  console.log('Created transaction:', transaction.id); // TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
   // Find the transaction
   const foundTransaction = await db.findTransaction(transaction.id);
@@ -342,7 +342,7 @@ async function errorHandlingExample() {
 
   try {
     // Try to find non-existent user
-    await db.findUser('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+    await db.findUser('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
   } catch (error) {
     console.error('Error:', error.message); // User not found
   }

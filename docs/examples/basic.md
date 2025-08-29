@@ -26,7 +26,22 @@ const userId = generateId('USER');
 console.log(userId); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 const txnId = generateId('TXN');
-console.log(txnId); // "TXN_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(txnId); // "TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+```
+
+### Configure ID Generation
+
+```typescript
+import { generateId, configure } from '@aexoo-ai/spark-id';
+
+// Set global defaults
+configure({ case: 'upper', separator: '_' })
+
+// Generate with global config
+const id1 = generateId('USER'); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+
+// Override for specific call
+const id2 = generateId('TXN', { case: 'lower', separator: '-' }); // "txn-YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Validate IDs
@@ -35,8 +50,8 @@ console.log(txnId); // "TXN_ybndrfg8ejkmcpqxot1uwisza345h769"
 import { isValidId } from '@aexoo-ai/spark-id';
 
 // Valid IDs
-console.log(isValidId('ybndrfg8ejkmcpqxot1uwisza345h769')); // true
-console.log(isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')); // true
+console.log(isValidId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
+console.log(isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
 
 // Invalid IDs
 console.log(isValidId('invalid-id')); // false
@@ -49,20 +64,20 @@ console.log(isValidId('')); // false
 import { parseId } from '@aexoo-ai/spark-id';
 
 // Parse simple ID
-const parsed1 = parseId('ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed1 = parseId('YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 console.log(parsed1);
 // {
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 
 // Parse prefixed ID
-const parsed2 = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed2 = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 console.log(parsed2);
 // {
 //   prefix: 'USER',
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 ```
 
@@ -89,9 +104,9 @@ import { SecureId } from '@aexoo-ai/spark-id';
 
 const secureId = new SecureId(undefined, 'USER');
 
-console.log(secureId.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 console.log(secureId.prefix); // "USER"
-console.log(secureId.full); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.full); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Compare IDs
@@ -119,7 +134,7 @@ import { generateId } from '@aexoo-ai/spark-id';
 const ids = Array.from({ length: 10 }, () => generateId());
 console.log(ids);
 // [
-//   "ybndrfg8ejkmcpqxot1uwisza345h769",
+//   "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
 //   "abc123def456ghi789",
 //   "xyz789uvw012mno345",
 //   ...
@@ -129,7 +144,7 @@ console.log(ids);
 const userIds = Array.from({ length: 5 }, () => generateId('USER'));
 console.log(userIds);
 // [
-//   "USER_ybndrfg8ejkmcpqxot1uwisza345h769",
+//   "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769",
 //   "USER_abc123def456ghi789",
 //   "USER_xyz789uvw012mno345",
 //   ...
@@ -142,19 +157,19 @@ console.log(userIds);
 import { isValidId } from '@aexoo-ai/spark-id';
 
 const ids = [
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769',
-  'TXN_ybndrfg8ejkmcpqxot1uwisza345h769',
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+  'TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
   'invalid-id',
-  'ORDER_ybndrfg8ejkmcpqxot1uwisza345h769',
+  'ORDER_YBNDRFG8EJKMCPQXOT1UWISZA345H769',
 ];
 
 // Filter valid IDs
 const validIds = ids.filter(isValidId);
 console.log(validIds);
 // [
-//   "USER_ybndrfg8ejkmcpqxot1uwisza345h769",
-//   "TXN_ybndrfg8ejkmcpqxot1uwisza345h769",
-//   "ORDER_ybndrfg8ejkmcpqxot1uwisza345h769"
+//   "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+//   "TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+//   "ORDER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 // ]
 
 // Separate valid and invalid
@@ -194,7 +209,7 @@ function safeParseId(id: string) {
 }
 
 // Usage
-const result1 = safeParseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const result1 = safeParseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 // { prefix: 'USER', id: '...', full: '...' }
 
 const result2 = safeParseId('invalid-id');
@@ -230,7 +245,7 @@ function validateIdWithMessage(id: string): {
 }
 
 // Usage
-console.log(validateIdWithMessage('USER_ybndrfg8ejkmcpqxot1uwisza345h769'));
+console.log(validateIdWithMessage('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'));
 // { valid: true, message: 'ID is valid' }
 
 console.log(validateIdWithMessage('invalid-id'));
@@ -335,7 +350,7 @@ import { isValidId } from '@aexoo-ai/spark-id';
 
 const testIds = Array.from(
   { length: 10000 },
-  () => 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  () => 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 
 const start = Date.now();

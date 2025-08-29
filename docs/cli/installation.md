@@ -292,14 +292,14 @@ npm config set https-proxy http://proxy.company.com:8080
 ```bash
 # Generate a simple ID
 spark-id
-# Should output: ybndrfg8ejkmcpqxot1uwisza345h769
+# Should output: YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # Generate with prefix
 spark-id -p USER
-# Should output: USER_ybndrfg8ejkmcpqxot1uwisza345h769
+# Should output: USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # Validate an ID
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Should output: true
 ```
 
@@ -311,7 +311,7 @@ spark-id -c 5
 # Should output 5 different IDs
 
 # Parse an ID
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Should output JSON with parsed components
 
 # JSON output

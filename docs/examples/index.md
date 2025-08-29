@@ -145,10 +145,10 @@ spark-id -p USER
 spark-id -c 5
 
 # Validate an ID
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # Parse an ID
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ## Common Patterns

@@ -34,6 +34,9 @@ features:
   - icon: 🛠️
     title: TypeScript Ready
     details: Full TypeScript support with comprehensive type definitions and IntelliSense.
+  - icon: ⚙️
+    title: Configurable
+    details: Customize casing, separators, alphabets, and more. Global defaults or per-call overrides.
 ---
 
 ## Quick Start
@@ -57,14 +60,17 @@ yarn add @aexoo-ai/spark-id
 ```typescript
 import { generateId, createId, isValidId, configure } from '@aexoo-ai/spark-id';
 
-// Configure casing and separator (optional)
-configure({ case: 'upper', separator: '_' })
+// Configure defaults (optional)
+configure({ case: 'upper', separator: '_' });
 
 // Generate a simple ID
 const id = generateId(); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate with prefix
 const userId = generateId('USER'); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+
+// Generate with custom config
+const customId = generateId('TXN', { case: 'lower', separator: '-' }); // "txn-YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Validate an ID
 isValidId(userId); // true
@@ -167,7 +173,7 @@ import { onMounted } from 'vue'
 onMounted(() => {
   // Mock spark-id functionality for demo
   const generateMockId = () => {
-    const chars = 'ybndrfg8ejkmcpqxot1uwisza345h769'
+    const chars = 'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
     return Array.from({ length: 12 }, () => chars[Math.floor(Math.random() * chars.length)]).join('')
   }
 
@@ -204,7 +210,7 @@ onMounted(() => {
     }
     
     // Simple validation for demo
-    const isValid = /^[A-Z_]*[ybndrfg8ejkmcpqxot1uwisza345h769]+$/.test(id)
+    const isValid = /^[A-Z_]*[YBNDRFG8EJKMCPQXOT1UWISZA345H769]+$/.test(id)
     validationResult.textContent = isValid ? '✅ Valid ID' : '❌ Invalid ID'
     validationResult.className = `demo-output ${isValid ? 'valid' : 'invalid'}`
   })
@@ -249,15 +255,15 @@ onMounted(() => {
 Choose your path to get started with Spark-ID:
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-  <a href="/guide/getting-started" class="feature-card">
+  <a href="/spark-id/guide/getting-started" class="feature-card">
     <h3>📖 Guide</h3>
     <p>Learn the basics and core concepts</p>
   </a>
-  <a href="/examples/" class="feature-card">
+  <a href="/spark-id/examples/" class="feature-card">
     <h3>💡 Examples</h3>
     <p>See real-world usage patterns</p>
   </a>
-  <a href="/api/" class="feature-card">
+  <a href="/spark-id/api/" class="feature-card">
     <h3>🔧 API Reference</h3>
     <p>Complete API documentation</p>
   </a>

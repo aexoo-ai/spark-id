@@ -6,6 +6,11 @@ export default defineConfig({
     lang: 'en-US',
     base: '/spark-id/',
 
+    // Enable strict link checking to catch 404s
+    markdown: {
+        linkCheck: 'error'
+    },
+
     themeConfig: {
         logo: '/logo.svg',
         siteTitle: 'Spark-ID',
@@ -34,6 +39,7 @@ export default defineConfig({
                         { text: 'ID Generation', link: '/guide/id-generation' },
                         { text: 'Prefixes', link: '/guide/prefixes' },
                         { text: 'Validation', link: '/guide/validation' },
+                        { text: 'Configuration', link: '/guide/configuration' },
                         { text: 'Security', link: '/guide/security' }
                     ]
                 }

@@ -45,11 +45,11 @@ configure({ case: 'upper', separator: '_' })
 
 // Generate a simple ID
 const id = generateId();
-console.log(id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate with prefix
 const userId = generateId('USER');
-console.log(userId); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Validate an ID
 console.log(isValidId(userId)); // true
@@ -63,18 +63,18 @@ import { SecureId } from '@aexoo-ai/spark-id';
 
 // Create a new SecureId instance
 const secureId = new SecureId();
-console.log(secureId.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(secureId.full); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(secureId.full); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Create with prefix
 const userSecureId = new SecureId(undefined, 'USER');
-console.log(userSecureId.full); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userSecureId.full); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 console.log(userSecureId.prefix); // "USER"
-console.log(userSecureId.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userSecureId.id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Create from existing ID
-const existingId = new SecureId('ybndrfg8ejkmcpqxot1uwisza345h769');
-console.log(existingId.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+const existingId = new SecureId('YBNDRFG8EJKMCPQXOT1UWISZA345H769');
+console.log(existingId.id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Validation and Parsing
@@ -83,18 +83,18 @@ console.log(existingId.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
 import { isValidId, parseId } from '@aexoo-ai/spark-id';
 
 // Validate IDs
-console.log(isValidId('ybndrfg8ejkmcpqxot1uwisza345h769')); // true
-console.log(isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')); // true
+console.log(isValidId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
+console.log(isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
 console.log(isValidId('invalid-id')); // false
 
 // Parse IDs
-const parsed1 = parseId('ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed1 = parseId('YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 console.log(parsed1);
-// { id: 'ybndrfg8ejkmcpqxot1uwisza345h769', full: 'ybndrfg8ejkmcpqxot1uwisza345h769' }
+// { id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769', full: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769' }
 
-const parsed2 = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed2 = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 console.log(parsed2);
-// { prefix: 'USER', id: 'ybndrfg8ejkmcpqxot1uwisza345h769', full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769' }
+// { prefix: 'USER', id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769', full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769' }
 ```
 
 ## Command Line Interface
@@ -118,10 +118,10 @@ spark-id -c 5
 spark-id -p TXN -c 3
 
 # Validate an ID
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # Parse an ID
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # JSON output
 spark-id -c 3 -f json
@@ -137,13 +137,13 @@ Spark-ID generates IDs using the following format:
 ### Simple IDs
 
 ```
-ybndrfg8ejkmcpqxot1uwisza345h769
+YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ### Prefixed IDs
 
 ```
-PREFIX_ybndrfg8ejkmcpqxot1uwisza345h769
+PREFIX_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ### Characteristics

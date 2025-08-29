@@ -12,7 +12,7 @@ Generate a basic ID without any prefix:
 import { generateId } from '@aexoo-ai/spark-id';
 
 const id = generateId();
-console.log(id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Prefixed IDs
@@ -24,9 +24,9 @@ const userId = generateId('USER');
 const txnId = generateId('TXN');
 const orderId = generateId('ORDER');
 
-console.log(userId); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(txnId); // "TXN_ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(orderId); // "ORDER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(txnId); // "TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(orderId); // "ORDER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ## Using the SecureId Class
@@ -50,9 +50,9 @@ const secureId4 = createId('TXN');
 ```typescript
 const secureId = new SecureId(undefined, 'USER');
 
-console.log(secureId.id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 console.log(secureId.prefix); // "USER"
-console.log(secureId.full); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.full); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ## Bulk Generation

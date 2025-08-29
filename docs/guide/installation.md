@@ -149,7 +149,7 @@ console.log('Generated ID:', testId);
 console.log('Is valid:', isValidId(testId));
 
 // Should output something like:
-// Generated ID: ybndrfg8ejkmcpqxot1uwisza345h769
+// Generated ID: YBNDRFG8EJKMCPQXOT1UWISZA345H769
 // Is valid: true
 ```
 

@@ -22,17 +22,17 @@ import { generateId } from '@aexoo-ai/spark-id'
 
 // Generate a simple ID
 const id = generateId()
-console.log(id) // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(id) // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate with prefix
 const userId = generateId('USER')
-console.log(userId) // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId) // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate multiple IDs
 const ids = Array.from({ length: 3 }, () => generateId())
 console.log(ids)
 // [
-//   "ybndrfg8ejkmcpqxot1uwisza345h769",
+//   "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
 //   "abc123def456ghi789",
 //   "xyz789uvw012mno345"
 // ]
@@ -64,14 +64,14 @@ import { createId } from '@aexoo-ai/spark-id'
 
 // Create a simple SecureId
 const secureId = createId()
-console.log(secureId.id)     // "ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(secureId.full)   // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(secureId.id)     // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(secureId.full)   // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 console.log(secureId.prefix) // undefined
 
 // Create with prefix
 const userSecureId = createId('USER')
-console.log(userSecureId.id)     // "ybndrfg8ejkmcpqxot1uwisza345h769"
-console.log(userSecureId.full)   // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userSecureId.id)     // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
+console.log(userSecureId.full)   // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 console.log(userSecureId.prefix) // "USER"
 ```
 
@@ -112,8 +112,8 @@ Validates if a string is a properly formatted Spark-ID.
 import { isValidId } from '@aexoo-ai/spark-id'
 
 // Valid IDs
-console.log(isValidId('ybndrfg8ejkmcpqxot1uwisza345h769')) // true
-console.log(isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')) // true
+console.log(isValidId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // true
+console.log(isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')) // true
 
 // Invalid IDs
 console.log(isValidId('invalid-id')) // false
@@ -160,20 +160,20 @@ A ParsedId object containing the parsed components.
 import { parseId } from '@aexoo-ai/spark-id'
 
 // Parse simple ID
-const parsed1 = parseId('ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed1 = parseId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 console.log(parsed1)
 // {
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 
 // Parse prefixed ID
-const parsed2 = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed2 = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 console.log(parsed2)
 // {
 //   prefix: 'USER',
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 ```
 
@@ -194,7 +194,7 @@ try {
 
 ```typescript
 // Extract prefix for routing
-const parsed = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 if (parsed.prefix === 'USER') {
   // Route to user handler
 } else if (parsed.prefix === 'TXN') {
@@ -202,7 +202,7 @@ if (parsed.prefix === 'USER') {
 }
 
 // Database queries
-const parsed = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const parsed = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 const query = `SELECT * FROM ${parsed.prefix.toLowerCase()}s WHERE id = '${parsed.id}'`
 ```
 
@@ -324,7 +324,7 @@ console.log(`Generated ${ids.length} IDs in ${end - start}ms`)
 import { isValidId } from '@aexoo-ai/spark-id'
 
 // Performance test
-const testIds = Array.from({ length: 10000 }, () => 'USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const testIds = Array.from({ length: 10000 }, () => 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 
 const start = Date.now()
 const results = testIds.map(isValidId)
@@ -340,7 +340,7 @@ console.log(`Validated ${testIds.length} IDs in ${end - start}ms`)
 import { parseId } from '@aexoo-ai/spark-id'
 
 // Performance test
-const testIds = Array.from({ length: 10000 }, () => 'USER_ybndrfg8ejkmcpqxot1uwisza345h769')
+const testIds = Array.from({ length: 10000 }, () => 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')
 
 const start = Date.now()
 const results = testIds.map(parseId)

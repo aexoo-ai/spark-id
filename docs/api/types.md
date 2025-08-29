@@ -94,20 +94,20 @@ interface ParsedId {
 import { parseId } from '@aexoo-ai/spark-id';
 
 // Simple ID
-const parsed1: ParsedId = parseId('ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed1: ParsedId = parseId('YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 console.log(parsed1);
 // {
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 
 // Prefixed ID
-const parsed2: ParsedId = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed2: ParsedId = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 console.log(parsed2);
 // {
 //   prefix: 'USER',
-//   id: 'ybndrfg8ejkmcpqxot1uwisza345h769',
-//   full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+//   id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769',
+//   full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 // }
 ```
 
@@ -193,7 +193,7 @@ Validates if a string is a properly formatted Spark-ID.
 import { isValidId } from '@aexoo-ai/spark-id';
 
 // Type inference
-const isValid: boolean = isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const isValid: boolean = isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 
 // Array validation
 const ids: string[] = ['id1', 'id2', 'id3'];
@@ -234,11 +234,11 @@ Parses an ID string into its components.
 import { parseId } from '@aexoo-ai/spark-id';
 
 // Type inference
-const parsed: ParsedId = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed: ParsedId = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 
 // Destructuring with types
 const { prefix, id, full }: ParsedId = parseId(
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 
 // Type-safe access
@@ -302,7 +302,7 @@ const full: string = secureId.full;
 // equals method
 const result: boolean = secureId.equals(otherSecureId);
 const result2: boolean = secureId.equals(
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 
 // toString method
@@ -316,13 +316,13 @@ const stringValue: string = secureId.toString();
 const generatedId: string = SecureId.generate('USER');
 const newInstance: SecureId = SecureId.create('TXN');
 const parsed: ParsedId = SecureId.parse(
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 const isValid: boolean = SecureId.isValid(
-  'USER_ybndrfg8ejkmcpqxot1uwisza345h769'
+  'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 const isValidRaw: boolean = SecureId.isValidRawId(
-  'ybndrfg8ejkmcpqxot1uwisza345h769'
+  'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 );
 const rawId: string = SecureId.generateRaw();
 ```
@@ -453,7 +453,7 @@ declare module '@aexoo-ai/spark-id' {
 }
 
 // Usage
-const parsed = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 parsed.isValid = true;
 parsed.createdAt = new Date();
 ```
@@ -472,15 +472,15 @@ type ExtractPrefix<T extends string> = T extends `${infer P}_${string}`
 type ExtractId<T extends string> = T extends `${string}_${infer I}` ? I : T;
 
 // Usage
-type UserPrefix = ExtractPrefix<'USER_ybndrfg8ejkmcpqxot1uwisza345h769'>; // 'USER'
-type UserId = ExtractId<'USER_ybndrfg8ejkmcpqxot1uwisza345h769'>; // 'ybndrfg8ejkmcpqxot1uwisza345h769'
+type UserPrefix = ExtractPrefix<'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'>; // 'USER'
+type UserId = ExtractId<'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769'>; // 'YBNDRFG8EJKMCPQXOT1UWISZA345H769'
 ```
 
 ### Type Assertions
 
 ```typescript
 // Type assertion for known valid IDs
-const knownValidId = 'USER_ybndrfg8ejkmcpqxot1uwisza345h769' as const;
+const knownValidId = 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769' as const;
 const parsed = parseId(knownValidId); // TypeScript knows this won't throw
 
 // Type assertion for prefix

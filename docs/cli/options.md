@@ -21,10 +21,10 @@ Add a prefix to generated IDs.
 
 ```bash
 spark-id -p USER
-# Output: USER_ybndrfg8ejkmcpqxot1uwisza345h769
+# Output: USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 spark-id --prefix TXN
-# Output: TXN_ybndrfg8ejkmcpqxot1uwisza345h769
+# Output: TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 **Validation:**
@@ -71,7 +71,7 @@ Validate an existing ID.
 **Examples:**
 
 ```bash
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Output: true
 
 spark-id --validate invalid-id
@@ -88,19 +88,19 @@ Parse an ID and display its components.
 **Examples:**
 
 ```bash
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Output:
 # {
 #   "prefix": "USER",
-#   "id": "ybndrfg8ejkmcpqxot1uwisza345h769",
-#   "full": "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+#   "id": "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+#   "full": "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 # }
 
-spark-id --parse ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse YBNDRFG8EJKMCPQXOT1UWISZA345H769
 # Output:
 # {
-#   "id": "ybndrfg8ejkmcpqxot1uwisza345h769",
-#   "full": "ybndrfg8ejkmcpqxot1uwisza345h769"
+#   "id": "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
+#   "full": "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 # }
 ```
 
@@ -123,21 +123,21 @@ Select output format: `text` (default), `json`, or `csv`.
 ```bash
 # JSON output
 spark-id -f json
-# Output: "ybndrfg8ejkmcpqxot1uwisza345h769"
+# Output: "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 spark-id -p USER -f json
-# Output: "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+# Output: "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 spark-id -c 3 -f json
 # Output: [
-#   "ybndrfg8ejkmcpqxot1uwisza345h769",
+#   "YBNDRFG8EJKMCPQXOT1UWISZA345H769",
 #   "abc123def456ghi789",
 #   "xyz789uvw012mno345"
 # ]
 
 # CSV output
 spark-id -c 5 -f csv
-# Output: ybndrfg8ejkmcpqxot1uwisza345h769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
+# Output: YBNDRFG8EJKMCPQXOT1UWISZA345H769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
 ```
 
 Note: Use `-f csv` for comma-separated output.
@@ -202,12 +202,12 @@ When using `--validate` or `--parse`, you can provide the ID as a positional arg
 
 ```bash
 # These are equivalent
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # These are equivalent
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
-spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
+spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ## Environment Variables
@@ -221,10 +221,10 @@ Set a default prefix for all generated IDs.
 ```bash
 export SPARK_ID_PREFIX=USER
 spark-id
-# Output: USER_ybndrfg8ejkmcpqxot1uwisza345h769
+# Output: USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 spark-id -p TXN
-# Output: TXN_ybndrfg8ejkmcpqxot1uwisza345h769 (overrides environment)
+# Output: TXN_YBNDRFG8EJKMCPQXOT1UWISZA345H769 (overrides environment)
 ```
 
 ### `SPARK_ID_COUNT`
@@ -311,7 +311,7 @@ spark-id -p USER -c 10 > test-users.txt
 spark-id -p TXN -c 20 > test-transactions.txt
 
 # Quick validation
-spark-id -v USER_ybndrfg8ejkmcpqxot1uwisza345h769
+spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 ```
 
 ### Scripting

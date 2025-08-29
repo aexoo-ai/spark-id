@@ -14,10 +14,10 @@ Generates a new cryptographically secure ID.
 import { generateId } from '@aexoo-ai/spark-id';
 
 // Generate a simple ID
-const id = generateId(); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+const id = generateId(); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate with prefix
-const userId = generateId('USER'); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+const userId = generateId('USER'); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 **Parameters:**
@@ -53,8 +53,8 @@ Validates if a string is a properly formatted Spark-ID.
 ```typescript
 import { isValidId } from '@aexoo-ai/spark-id';
 
-console.log(isValidId('ybndrfg8ejkmcpqxot1uwisza345h769')); // true
-console.log(isValidId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')); // true
+console.log(isValidId('YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
+console.log(isValidId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769')); // true
 console.log(isValidId('invalid-id')); // false
 ```
 
@@ -72,12 +72,12 @@ Parses an ID string into its components.
 import { parseId } from '@aexoo-ai/spark-id';
 
 // Parse simple ID
-const parsed1 = parseId('ybndrfg8ejkmcpqxot1uwisza345h769');
-// { id: 'ybndrfg8ejkmcpqxot1uwisza345h769', full: 'ybndrfg8ejkmcpqxot1uwisza345h769' }
+const parsed1 = parseId('YBNDRFG8EJKMCPQXOT1UWISZA345H769');
+// { id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769', full: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769' }
 
 // Parse prefixed ID
-const parsed2 = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
-// { prefix: 'USER', id: 'ybndrfg8ejkmcpqxot1uwisza345h769', full: 'USER_ybndrfg8ejkmcpqxot1uwisza345h769' }
+const parsed2 = parseId('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
+// { prefix: 'USER', id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769', full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769' }
 ```
 
 **Parameters:**
@@ -104,7 +104,7 @@ const secureId = new SecureId();
 const userSecureId = new SecureId(undefined, 'USER');
 
 // Create from existing ID
-const existingId = new SecureId('ybndrfg8ejkmcpqxot1uwisza345h769');
+const existingId = new SecureId('YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 ```
 
 **Constructor:**
@@ -160,7 +160,7 @@ const secureId = SecureId.create('USER');
 Static method to parse an ID string.
 
 ```typescript
-const parsed = SecureId.parse('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const parsed = SecureId.parse('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 ```
 
 ### `SecureId.isValid(idString: string, config?: Partial<SparkIdConfig>): boolean`
@@ -168,7 +168,7 @@ const parsed = SecureId.parse('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
 Static method to validate an ID string.
 
 ```typescript
-const isValid = SecureId.isValid('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
+const isValid = SecureId.isValid('USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 ```
 
 ### `SecureId.isValidRawId(rawId: string): boolean`
@@ -189,7 +189,7 @@ resetConfig()
 Static method to validate a raw ID (without prefix).
 
 ```typescript
-const isValid = SecureId.isValidRawId('ybndrfg8ejkmcpqxot1uwisza345h769');
+const isValid = SecureId.isValidRawId('YBNDRFG8EJKMCPQXOT1UWISZA345H769');
 ```
 
 ## Error Handling
