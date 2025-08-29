@@ -1,0 +1,1 @@
+{"version":3,"file":"spark-id.js","sourceRoot":"","sources":["../src/spark-id.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;AAAA,4CAA4C;AAC5C,qDAAmC;AAEnC,sDAAsD;AACtD,qDAAgD;AACnC,QAAA,OAAO,GAAG,yBAAU,CAAC;AAElC,4CAA4C;AAC5C,qDAAiG;AACjG,kBAAe;IACb,UAAU,EAAE,yBAAK;IACjB,QAAQ,EAAR,uBAAQ;IACR,SAAS,EAAT,wBAAS;IACT,OAAO,EAAP,sBAAO;IACP,OAAO,EAAE,yBAAK;IACd,QAAQ,EAAR,uBAAQ;CACT,CAAC"}

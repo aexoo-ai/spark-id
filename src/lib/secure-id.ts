@@ -1,4 +1,5 @@
 import { randomBytes } from 'crypto';
+import type { SparkIdStats, SparkIdValidationResult } from '../types';
 
 /**
  * Secure ID Generator with optional prefix support
@@ -9,6 +10,7 @@ import { randomBytes } from 'crypto';
  * - Optional prefix support (e.g., "USER_", "TXN_")
  * - Collision-resistant
  * - Human-readable (all uppercase)
+ * - Comprehensive error handling
  *
  * @example
  * ```typescript
@@ -28,6 +30,34 @@ import { randomBytes } from 'crypto';
  * // { prefix: 'USER', id: 'YBNDRFG8EJKMCPQXOT1UWISZA345H769', full: 'USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769' }
  * ```
  */
+
+// Custom error classes for better error handling
+export class SparkIdError extends Error {
+  constructor(message: string, public code?: string) {
+    super(message);
+    this.name = 'SparkIdError';
+  }
+}
+
+export class InvalidPrefixError extends SparkIdError {
+  constructor(prefix: string) {
+    super(
+      `Invalid prefix: "${prefix}". Prefix must contain only alphanumeric characters and underscores, and be between 1-50 characters.`,
+      'INVALID_PREFIX'
+    );
+    this.name = 'InvalidPrefixError';
+  }
+}
+
+export class InvalidIdError extends SparkIdError {
+  constructor(id: string, reason?: string) {
+    super(
+      `Invalid ID: "${id}". ${reason || 'ID format is not valid.'}`,
+      'INVALID_ID'
+    );
+    this.name = 'InvalidIdError';
+  }
+}
 export class SecureId {
   private static readonly Z_BASE32_ALPHABET =
     'yvndrfg9ejkmcpqxwt2uwxsza345h769';
@@ -43,9 +73,7 @@ export class SecureId {
   constructor(id?: string, prefix?: string) {
     // Validate prefix if provided
     if (prefix !== undefined && !SecureId.isValidPrefix(prefix)) {
-      throw new Error(
-        `Invalid prefix: ${prefix}. Prefix must contain only alphanumeric characters and underscores, and be between 1-50 characters.`
-      );
+      throw new InvalidPrefixError(prefix);
     }
 
     // Convert prefix to uppercase for consistency
@@ -87,9 +115,7 @@ export class SecureId {
    */
   static generate(prefix?: string): string {
     if (prefix !== undefined && !SecureId.isValidPrefix(prefix)) {
-      throw new Error(
-        `Invalid prefix: ${prefix}. Prefix must contain only alphanumeric characters and underscores, and be between 1-50 characters.`
-      );
+      throw new InvalidPrefixError(prefix);
     }
 
     const rawId = SecureId.generateRaw();
@@ -116,24 +142,33 @@ export class SecureId {
     full: string;
   } {
     if (typeof idString !== 'string') {
-      throw new Error('ID must be a string');
+      throw new InvalidIdError(idString, 'ID must be a string');
     }
 
     if (idString.length === 0) {
-      throw new Error('ID cannot be empty');
+      throw new InvalidIdError(idString, 'ID cannot be empty');
     }
 
     const parts = idString.split(SecureId.PREFIX_SEPARATOR);
 
     if (parts.length === 1) {
-      return { id: parts[0], full: parts[0] };
+      const id = parts[0];
+      if (!SecureId.isValidRawId(id)) {
+        throw new InvalidIdError(idString, 'Invalid ID format');
+      }
+      return { id, full: id };
     }
 
     if (parts.length === 2) {
-      return { prefix: parts[0], id: parts[1], full: idString };
+      const prefix = parts[0];
+      const id = parts[1];
+      if (!SecureId.isValidRawId(id)) {
+        throw new InvalidIdError(idString, 'Invalid ID format');
+      }
+      return { prefix, id, full: idString };
     }
 
-    throw new Error(`Invalid ID format: ${idString}`);
+    throw new InvalidIdError(idString, 'ID contains too many separators');
   }
 
   /**
@@ -209,6 +244,59 @@ export class SecureId {
   hasPrefix(): boolean {
     return this.prefix !== undefined;
   }
+
+  /**
+   * Get statistics about this ID
+   */
+  getStats(): SparkIdStats {
+    const entropyBits = this.getEntropyBits();
+    const maxIds = Math.pow(2, entropyBits);
+    const collisionProbability = 1 / maxIds;
+
+    return {
+      entropyBits,
+      collisionProbability,
+      maxIds
+    };
+  }
+
+  /**
+   * Validate this ID and return detailed result
+   */
+  validate(): SparkIdValidationResult {
+    try {
+      const isValid = SecureId.isValid(this.full);
+      return {
+        isValid,
+        error: isValid ? undefined : 'Invalid ID format',
+        code: isValid ? undefined : 'INVALID_FORMAT'
+      };
+    } catch (error) {
+      return {
+        isValid: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        code: 'VALIDATION_ERROR'
+      };
+    }
+  }
+
+  /**
+   * Create a new ID with the same prefix
+   */
+  generateSimilar(): SecureId {
+    return new SecureId(undefined, this.prefix);
+  }
+
+  /**
+   * Convert to JSON representation
+   */
+  toJSON(): { id: string; prefix?: string; full: string } {
+    return {
+      id: this.id,
+      prefix: this.prefix,
+      full: this.full
+    };
+  }
 }
 
 // Convenience functions
@@ -217,3 +305,64 @@ export const generateId = (prefix?: string): string =>
 export const createId = (prefix?: string): SecureId => SecureId.create(prefix);
 export const isValidId = (id: string): boolean => SecureId.isValid(id);
 export const parseId = (id: string) => SecureId.parse(id);
+
+// Enhanced convenience functions with better error handling
+export const generateIdSafe = (prefix?: string): { success: true; id: string } | { success: false; error: string } => {
+  try {
+    const id = SecureId.generate(prefix);
+    return { success: true, id };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
+};
+
+export const validateId = (id: string): SparkIdValidationResult => {
+  try {
+    const isValid = SecureId.isValid(id);
+    return {
+      isValid,
+      error: isValid ? undefined : 'Invalid ID format',
+      code: isValid ? undefined : 'INVALID_FORMAT'
+    };
+  } catch (error) {
+    return {
+      isValid: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      code: 'VALIDATION_ERROR'
+    };
+  }
+};
+
+export const generateMultiple = (count: number, prefix?: string): string[] => {
+  if (count <= 0) {
+    throw new SparkIdError('Count must be greater than 0', 'INVALID_COUNT');
+  }
+  if (count > 1000) {
+    throw new SparkIdError('Count cannot exceed 1000', 'COUNT_TOO_LARGE');
+  }
+
+  return Array.from({ length: count }, () => SecureId.generate(prefix));
+};
+
+export const generateUnique = (count: number, prefix?: string): Set<string> => {
+  const ids = new Set<string>();
+  let attempts = 0;
+  const maxAttempts = count * 10; // Prevent infinite loops
+
+  while (ids.size < count && attempts < maxAttempts) {
+    ids.add(SecureId.generate(prefix));
+    attempts++;
+  }
+
+  if (ids.size < count) {
+    throw new SparkIdError(
+      `Failed to generate ${count} unique IDs after ${maxAttempts} attempts`,
+      'GENERATION_FAILED'
+    );
+  }
+
+  return ids;
+};

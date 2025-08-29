@@ -3,8 +3,9 @@
 	"version": "1.0.4",
 	"type": "module",
 	"description": "Cryptographically secure, URL-safe ID generator with prefix support",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"bin": {
 		"spark-id": "dist/cli.js"
 	},
@@ -12,22 +13,49 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js",
-			"require": "./dist/index.js"
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.js"
+		},
+		"./spark-id": {
+			"types": "./dist/spark-id.d.ts",
+			"import": "./dist/spark-id.js",
+			"require": "./dist/spark-id.cjs",
+			"default": "./dist/spark-id.js"
+		},
+		"./cjs": {
+			"types": "./dist/index.d.ts",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.cjs"
+		},
+		"./esm": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./cli": {
+			"types": "./dist/cli.d.ts",
+			"import": "./dist/cli.js",
+			"require": "./dist/cli.cjs",
+			"default": "./dist/cli.js"
 		}
 	},
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"build": "tsc",
+		"build": "pnpm build:esm && pnpm build:cjs && pnpm build:rename",
+		"build:esm": "tsc",
+		"build:cjs": "tsc --project tsconfig.cjs.json",
+		"build:rename": "node scripts/rename-cjs.cjs",
 		"dev": "tsc --watch",
 		"test": "vitest",
 		"test:coverage": "vitest --coverage",
 		"test:watch": "vitest --watch",
+		"test:integration": "node test-integration.cjs",
 		"lint": "eslint src --ext .ts",
 		"lint:fix": "eslint src --ext .ts --fix",
 		"format": "prettier --write src/**/*.ts",
-		"prepublishOnly": "pnpm build && pnpm test",
+		"prepublishOnly": "pnpm build && pnpm test && pnpm test:integration",
 		"prepare": "husky install",
 		"docs:dev": "vitepress dev docs",
 		"docs:build": "vitepress build docs",
