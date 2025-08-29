@@ -28,6 +28,6 @@ exports.default = {
     isValidId: secure_id_js_2.isValidId,
     parseId: secure_id_js_2.parseId,
     sparkId: secure_id_js_2.generateId,
-    SecureId: secure_id_js_2.SecureId
+    SecureId: secure_id_js_2.SecureId,
 };
 //# sourceMappingURL=spark-id.js.map

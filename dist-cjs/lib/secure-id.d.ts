@@ -1,4 +1,4 @@
-import type { SparkIdStats, SparkIdValidationResult, SparkIdConfig } from '../types';
+import type { SparkIdConfig, SparkIdStats, SparkIdValidationResult } from '../types';
 /**
  * Secure ID Generator with optional prefix support
  *

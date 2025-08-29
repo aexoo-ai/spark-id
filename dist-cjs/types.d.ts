@@ -32,5 +32,5 @@ export interface SparkIdStats {
     maxIds: number;
 }
 export declare const DEFAULT_CONFIG: SparkIdConfig;
-export type { InvalidIdError, InvalidPrefixError, SecureId, SparkIdError } from './lib/secure-id.js';
+export type { InvalidIdError, InvalidPrefixError, SecureId, SparkIdError, } from './lib/secure-id.js';
 //# sourceMappingURL=types.d.ts.map

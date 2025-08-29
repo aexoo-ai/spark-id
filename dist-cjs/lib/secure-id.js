@@ -104,7 +104,8 @@ class SecureId {
      */
     static generateRaw(config) {
         const entropyBits = SecureId.getConfigValue('entropyBits', config) ?? 72;
-        const alphabet = SecureId.getConfigValue('alphabet', config) ?? 'yvndrfg9ejkmcpqxwt2uwxsza345h769';
+        const alphabet = SecureId.getConfigValue('alphabet', config) ??
+            'yvndrfg9ejkmcpqxwt2uwxsza345h769';
         const caseSetting = SecureId.getConfigValue('case', config) ?? 'upper';
         const bytesLength = Math.ceil(entropyBits / 8);
         const bytes = (0, crypto_1.randomBytes)(bytesLength);
@@ -148,9 +149,7 @@ class SecureId {
                     formattedPrefix = prefix.toUpperCase();
             }
         }
-        return formattedPrefix
-            ? `${formattedPrefix}${separator}${rawId}`
-            : rawId;
+        return formattedPrefix ? `${formattedPrefix}${separator}${rawId}` : rawId;
     }
     /**
      * Create a new SecureId instance
@@ -205,10 +204,10 @@ class SecureId {
     static isValidRawId(rawId, config) {
         if (!rawId || typeof rawId !== 'string')
             return false;
-        const alphabet = SecureId.getConfigValue('alphabet', config) ?? 'yvndrfg9ejkmcpqxwt2uwxsza345h769';
+        const alphabet = SecureId.getConfigValue('alphabet', config) ??
+            'yvndrfg9ejkmcpqxwt2uwxsza345h769';
         const entropyBits = SecureId.getConfigValue('entropyBits', config) ?? 72;
-        // Calculate expected length based on entropy bits
-        const expectedLength = Math.ceil(entropyBits / 5); // 5 bits per character in base32
+        // Calculate length bounds based on entropy bits
         const minLength = Math.floor(entropyBits / 5);
         const maxLength = Math.ceil(entropyBits / 5);
         // Performance optimization: check length first
@@ -281,7 +280,7 @@ class SecureId {
      * Get configuration value with fallback to defaults
      */
     static getConfigValue(key, localConfig) {
-        return localConfig?.[key] ?? SecureId.globalConfig[key] ?? types_js_1.DEFAULT_CONFIG[key];
+        return (localConfig?.[key] ?? SecureId.globalConfig[key] ?? types_js_1.DEFAULT_CONFIG[key]);
     }
     /**
      * Get statistics about this ID
@@ -293,7 +292,7 @@ class SecureId {
         return {
             entropyBits,
             collisionProbability,
-            maxIds
+            maxIds,
         };
     }
     /**
@@ -305,14 +304,14 @@ class SecureId {
             return {
                 isValid,
                 error: isValid ? undefined : 'Invalid ID format',
-                code: isValid ? undefined : 'INVALID_FORMAT'
+                code: isValid ? undefined : 'INVALID_FORMAT',
             };
         }
         catch (error) {
             return {
                 isValid: false,
                 error: error instanceof Error ? error.message : 'Unknown error',
-                code: 'VALIDATION_ERROR'
+                code: 'VALIDATION_ERROR',
             };
         }
     }
@@ -329,7 +328,7 @@ class SecureId {
         return {
             id: this.id,
             prefix: this.prefix,
-            full: this.full
+            full: this.full,
         };
     }
 }
@@ -360,7 +359,7 @@ const generateIdSafe = (prefix, config) => {
     catch (error) {
         return {
             success: false,
-            error: error instanceof Error ? error.message : 'Unknown error'
+            error: error instanceof Error ? error.message : 'Unknown error',
         };
     }
 };
@@ -371,14 +370,14 @@ const validateId = (id, config) => {
         return {
             isValid,
             error: isValid ? undefined : 'Invalid ID format',
-            code: isValid ? undefined : 'INVALID_FORMAT'
+            code: isValid ? undefined : 'INVALID_FORMAT',
         };
     }
     catch (error) {
         return {
             isValid: false,
             error: error instanceof Error ? error.message : 'Unknown error',
-            code: 'VALIDATION_ERROR'
+            code: 'VALIDATION_ERROR',
         };
     }
 };

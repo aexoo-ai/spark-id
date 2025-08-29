@@ -1,5 +1,9 @@
 import { randomBytes } from 'crypto';
-import type { SparkIdConfig, SparkIdStats, SparkIdValidationResult } from '../types';
+import type {
+  SparkIdConfig,
+  SparkIdStats,
+  SparkIdValidationResult,
+} from '../types';
 import { DEFAULT_CONFIG } from '../types.js';
 
 /**
@@ -34,7 +38,10 @@ import { DEFAULT_CONFIG } from '../types.js';
 
 // Custom error classes for better error handling
 export class SparkIdError extends Error {
-  constructor(message: string, public code?: string) {
+  constructor(
+    message: string,
+    public code?: string
+  ) {
     super(message);
     this.name = 'SparkIdError';
   }
@@ -112,8 +119,12 @@ export class SecureId {
   /**
    * Validate prefix format
    */
-  private static isValidPrefix(prefix: string, config?: Partial<SparkIdConfig>): boolean {
-    const maxPrefixLength = SecureId.getConfigValue('maxPrefixLength', config) ?? 20;
+  private static isValidPrefix(
+    prefix: string,
+    config?: Partial<SparkIdConfig>
+  ): boolean {
+    const maxPrefixLength =
+      SecureId.getConfigValue('maxPrefixLength', config) ?? 20;
 
     if (
       typeof prefix !== 'string' ||
@@ -132,7 +143,9 @@ export class SecureId {
    */
   static generateRaw(config?: Partial<SparkIdConfig>): string {
     const entropyBits = SecureId.getConfigValue('entropyBits', config) ?? 72;
-    const alphabet = SecureId.getConfigValue('alphabet', config) ?? 'yvndrfg9ejkmcpqxwt2uwxsza345h769';
+    const alphabet =
+      SecureId.getConfigValue('alphabet', config) ??
+      'yvndrfg9ejkmcpqxwt2uwxsza345h769';
     const caseSetting = SecureId.getConfigValue('case', config) ?? 'upper';
 
     const bytesLength = Math.ceil(entropyBits / 8);
@@ -182,9 +195,7 @@ export class SecureId {
       }
     }
 
-    return formattedPrefix
-      ? `${formattedPrefix}${separator}${rawId}`
-      : rawId;
+    return formattedPrefix ? `${formattedPrefix}${separator}${rawId}` : rawId;
   }
 
   /**
@@ -197,7 +208,10 @@ export class SecureId {
   /**
    * Parse an ID string into components
    */
-  static parse(idString: string, config?: Partial<SparkIdConfig>): {
+  static parse(
+    idString: string,
+    config?: Partial<SparkIdConfig>
+  ): {
     prefix?: string;
     id: string;
     full: string;
@@ -251,11 +265,12 @@ export class SecureId {
   static isValidRawId(rawId: string, config?: Partial<SparkIdConfig>): boolean {
     if (!rawId || typeof rawId !== 'string') return false;
 
-    const alphabet = SecureId.getConfigValue('alphabet', config) ?? 'yvndrfg9ejkmcpqxwt2uwxsza345h769';
+    const alphabet =
+      SecureId.getConfigValue('alphabet', config) ??
+      'yvndrfg9ejkmcpqxwt2uwxsza345h769';
     const entropyBits = SecureId.getConfigValue('entropyBits', config) ?? 72;
 
-    // Calculate expected length based on entropy bits
-    const expectedLength = Math.ceil(entropyBits / 5); // 5 bits per character in base32
+    // Calculate length bounds based on entropy bits
     const minLength = Math.floor(entropyBits / 5);
     const maxLength = Math.ceil(entropyBits / 5);
 
@@ -267,7 +282,10 @@ export class SecureId {
       .every((char) => alphabet.includes(char.toLowerCase()));
   }
 
-  private static base32Encode(buffer: Buffer, alphabet: string = SecureId.Z_BASE32_ALPHABET): string {
+  private static base32Encode(
+    buffer: Buffer,
+    alphabet: string = SecureId.Z_BASE32_ALPHABET
+  ): string {
     // For now, only support base32 encoding (32 characters)
     // In the future, we can add support for other encodings
     if (alphabet.length !== 32) {
@@ -349,7 +367,9 @@ export class SecureId {
     key: K,
     localConfig?: Partial<SparkIdConfig>
   ): SparkIdConfig[K] {
-    return localConfig?.[key] ?? SecureId.globalConfig[key] ?? DEFAULT_CONFIG[key];
+    return (
+      localConfig?.[key] ?? SecureId.globalConfig[key] ?? DEFAULT_CONFIG[key]
+    );
   }
 
   /**
@@ -363,7 +383,7 @@ export class SecureId {
     return {
       entropyBits,
       collisionProbability,
-      maxIds
+      maxIds,
     };
   }
 
@@ -376,13 +396,13 @@ export class SecureId {
       return {
         isValid,
         error: isValid ? undefined : 'Invalid ID format',
-        code: isValid ? undefined : 'INVALID_FORMAT'
+        code: isValid ? undefined : 'INVALID_FORMAT',
       };
     } catch (error) {
       return {
         isValid: false,
         error: error instanceof Error ? error.message : 'Unknown error',
-        code: 'VALIDATION_ERROR'
+        code: 'VALIDATION_ERROR',
       };
     }
   }
@@ -401,49 +421,68 @@ export class SecureId {
     return {
       id: this.id,
       prefix: this.prefix,
-      full: this.full
+      full: this.full,
     };
   }
 }
 
 // Convenience functions
-export const generateId = (prefix?: string, config?: Partial<SparkIdConfig>): string =>
-  SecureId.generate(prefix, config);
-export const createId = (prefix?: string, config?: Partial<SparkIdConfig>): SecureId => SecureId.create(prefix, config);
-export const isValidId = (id: string, config?: Partial<SparkIdConfig>): boolean => SecureId.isValid(id, config);
-export const parseId = (id: string, config?: Partial<SparkIdConfig>) => SecureId.parse(id, config);
+export const generateId = (
+  prefix?: string,
+  config?: Partial<SparkIdConfig>
+): string => SecureId.generate(prefix, config);
+export const createId = (
+  prefix?: string,
+  config?: Partial<SparkIdConfig>
+): SecureId => SecureId.create(prefix, config);
+export const isValidId = (
+  id: string,
+  config?: Partial<SparkIdConfig>
+): boolean => SecureId.isValid(id, config);
+export const parseId = (id: string, config?: Partial<SparkIdConfig>) =>
+  SecureId.parse(id, config);
 
 // Enhanced convenience functions with better error handling
-export const generateIdSafe = (prefix?: string, config?: Partial<SparkIdConfig>): { success: true; id: string } | { success: false; error: string } => {
+export const generateIdSafe = (
+  prefix?: string,
+  config?: Partial<SparkIdConfig>
+): { success: true; id: string } | { success: false; error: string } => {
   try {
     const id = SecureId.generate(prefix, config);
     return { success: true, id };
   } catch (error) {
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error'
+      error: error instanceof Error ? error.message : 'Unknown error',
     };
   }
 };
 
-export const validateId = (id: string, config?: Partial<SparkIdConfig>): SparkIdValidationResult => {
+export const validateId = (
+  id: string,
+  config?: Partial<SparkIdConfig>
+): SparkIdValidationResult => {
   try {
     const isValid = SecureId.isValid(id, config);
     return {
       isValid,
       error: isValid ? undefined : 'Invalid ID format',
-      code: isValid ? undefined : 'INVALID_FORMAT'
+      code: isValid ? undefined : 'INVALID_FORMAT',
     };
   } catch (error) {
     return {
       isValid: false,
       error: error instanceof Error ? error.message : 'Unknown error',
-      code: 'VALIDATION_ERROR'
+      code: 'VALIDATION_ERROR',
     };
   }
 };
 
-export const generateMultiple = (count: number, prefix?: string, config?: Partial<SparkIdConfig>): string[] => {
+export const generateMultiple = (
+  count: number,
+  prefix?: string,
+  config?: Partial<SparkIdConfig>
+): string[] => {
   if (count <= 0) {
     throw new SparkIdError('Count must be greater than 0', 'INVALID_COUNT');
   }
@@ -454,7 +493,11 @@ export const generateMultiple = (count: number, prefix?: string, config?: Partia
   return Array.from({ length: count }, () => SecureId.generate(prefix, config));
 };
 
-export const generateUnique = (count: number, prefix?: string, config?: Partial<SparkIdConfig>): Set<string> => {
+export const generateUnique = (
+  count: number,
+  prefix?: string,
+  config?: Partial<SparkIdConfig>
+): Set<string> => {
   const ids = new Set<string>();
   let attempts = 0;
   const maxAttempts = count * 10; // Prevent infinite loops
