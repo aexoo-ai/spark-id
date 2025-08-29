@@ -94,7 +94,7 @@ const logId = generateId('LOG')
 ### Best Practices
 
 ```typescript
-// ✅ Use UPPERCASE for consistency
+// ✅ Prefer UPPERCASE (default output casing can be configured)
 const userId = generateId('USER')
 const txnId = generateId('TXN')
 

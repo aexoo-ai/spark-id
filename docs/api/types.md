@@ -8,6 +8,72 @@ Complete reference for all TypeScript types and interfaces in the Spark-ID API.
 
 Represents the parsed components of an ID.
 
+### `SparkIdConfig`
+
+Controls ID generation, formatting, and validation behavior.
+
+```typescript
+interface SparkIdConfig {
+  // Core generation
+  alphabet?: string;
+  entropyBits?: number;
+  length?: number;
+
+  // Formatting
+  maxPrefixLength?: number;
+  separator?: string;
+  case?: 'upper' | 'lower' | 'mixed';
+
+  // Advanced
+  encoding?: 'base32' | 'base64' | 'hex' | 'custom';
+  timestamp?: boolean;
+  machineId?: string | number;
+}
+```
+
+### `SparkIdOptions`
+
+Wrapper for common call options.
+
+```typescript
+interface SparkIdOptions {
+  prefix?: string;
+  config?: Partial<SparkIdConfig>;
+}
+```
+
+### `SparkIdValidationResult`
+
+Detailed validation output.
+
+```typescript
+interface SparkIdValidationResult {
+  isValid: boolean;
+  error?: string;
+  code?: string;
+}
+```
+
+### `SparkIdStats`
+
+Statistics for an ID or configuration.
+
+```typescript
+interface SparkIdStats {
+  entropyBits: number;
+  collisionProbability: number;
+  maxIds: number;
+}
+```
+
+### `DEFAULT_CONFIG`
+
+Default configuration values used by Spark-ID.
+
+```typescript
+const DEFAULT_CONFIG: SparkIdConfig
+```
+
 ```typescript
 interface ParsedId {
   prefix?: string;
@@ -50,7 +116,7 @@ console.log(parsed2);
 ### `generateId`
 
 ```typescript
-function generateId(prefix?: string): string;
+function generateId(prefix?: string, config?: Partial<SparkIdConfig>): string;
 ```
 
 Generates a new cryptographically secure ID.
@@ -79,7 +145,7 @@ const ids: string[] = Array.from({ length: 5 }, () => generateId());
 ### `createId`
 
 ```typescript
-function createId(prefix?: string): SecureId;
+function createId(prefix?: string, config?: Partial<SparkIdConfig>): SecureId;
 ```
 
 Creates a new SecureId instance.
@@ -108,7 +174,7 @@ const secureIds: SecureId[] = Array.from({ length: 3 }, () => createId('TXN'));
 ### `isValidId`
 
 ```typescript
-function isValidId(id: string): boolean;
+function isValidId(id: string, config?: Partial<SparkIdConfig>): boolean;
 ```
 
 Validates if a string is a properly formatted Spark-ID.
@@ -145,7 +211,7 @@ function processId(id: string): void {
 ### `parseId`
 
 ```typescript
-function parseId(id: string): ParsedId;
+function parseId(id: string, config?: Partial<SparkIdConfig>): ParsedId;
 ```
 
 Parses an ID string into its components.
@@ -193,17 +259,29 @@ class SecureId {
   public readonly prefix?: string;
   public readonly full: string;
 
-  constructor(id?: string, prefix?: string);
+  constructor(id?: string, prefix?: string, config?: Partial<SparkIdConfig>);
 
   equals(other: SecureId | string): boolean;
   toString(): string;
 
-  static generate(prefix?: string): string;
-  static create(prefix?: string): SecureId;
-  static parse(idString: string): ParsedId;
-  static isValid(idString: string): boolean;
+  static generate(prefix?: string, config?: Partial<SparkIdConfig>): string;
+  static create(prefix?: string, config?: Partial<SparkIdConfig>): SecureId;
+  static parse(idString: string, config?: Partial<SparkIdConfig>): ParsedId;
+  static isValid(idString: string, config?: Partial<SparkIdConfig>): boolean;
   static isValidRawId(rawId: string): boolean;
-  static generateRaw(): string;
+  static generateRaw(config?: Partial<SparkIdConfig>): string;
+
+  // Configuration helpers
+  static configure(config: Partial<SparkIdConfig>): void;
+  static getConfig(): SparkIdConfig;
+  static resetConfig(): void;
+
+  // Instance helpers
+  getEntropyBits(): number;
+  hasPrefix(): boolean;
+  getStats(): SparkIdStats;
+  validate(): SparkIdValidationResult;
+  generateSimilar(): SecureId;
 }
 ```
 

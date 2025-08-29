@@ -31,7 +31,7 @@ Spark-ID generates IDs with **72 bits of entropy** (9 bytes), providing:
 // Spark-ID uses 72 bits of entropy
 const bitsOfEntropy = 72
 
-// Collision probability calculation
+// Collision probability (birthday bound approximation)
 const collisionProbability = 1 / (2 ** (bitsOfEntropy / 2))
 console.log(`Collision probability: ${collisionProbability}`)
 // Output: ~2.7 × 10^-22

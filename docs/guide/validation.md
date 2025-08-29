@@ -31,6 +31,17 @@ console.log(SecureId.isValid('ybndrfg8ejkmcpqxot1uwisza345h769')); // true
 console.log(SecureId.isValidRawId('ybndrfg8ejkmcpqxot1uwisza345h769')); // true
 ```
 
+## Detailed validation
+
+Use `validateId()` for structured results with error codes:
+
+```typescript
+import { validateId } from '@aexoo-ai/spark-id'
+
+const result = validateId('invalid-id')
+// { isValid: false, error: 'Invalid ID format', code: 'INVALID_FORMAT' }
+```
+
 ## What Gets Validated
 
 ### Valid Characters

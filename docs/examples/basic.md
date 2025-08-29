@@ -7,11 +7,13 @@ Learn the fundamentals of Spark-ID with simple, practical examples.
 ### Generate Simple IDs
 
 ```typescript
-import { generateId } from '@aexoo-ai/spark-id';
+import { generateId, configure } from '@aexoo-ai/spark-id';
+
+configure({ case: 'upper' })
 
 // Generate a basic ID
 const id = generateId();
-console.log(id); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 ```
 
 ### Generate Prefixed IDs
@@ -21,7 +23,7 @@ import { generateId } from '@aexoo-ai/spark-id';
 
 // Generate with prefix
 const userId = generateId('USER');
-console.log(userId); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+console.log(userId); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 const txnId = generateId('TXN');
 console.log(txnId); // "TXN_ybndrfg8ejkmcpqxot1uwisza345h769"

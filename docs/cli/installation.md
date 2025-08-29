@@ -315,7 +315,7 @@ spark-id --parse USER_ybndrfg8ejkmcpqxot1uwisza345h769
 # Should output JSON with parsed components
 
 # JSON output
-spark-id -p USER --json
+spark-id -p USER -f json
 # Should output JSON format
 ```
 

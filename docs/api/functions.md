@@ -2,13 +2,14 @@
 
 Complete reference for all functions in the Spark-ID API.
 
-## `generateId(prefix?: string): string`
+## `generateId(prefix?: string, config?: Partial<SparkIdConfig>): string`
 
 Generates a new cryptographically secure ID.
 
 ### Parameters
 
 - `prefix` (optional): A string prefix to add to the ID
+- `config` (optional): Partial `SparkIdConfig` to override global/default settings
 
 ### Returns
 
@@ -43,13 +44,14 @@ console.log(ids)
 - **Memory**: Minimal memory footprint
 - **Thread Safety**: Safe for concurrent use
 
-## `createId(prefix?: string): SecureId`
+## `createId(prefix?: string, config?: Partial<SparkIdConfig>): SecureId`
 
 Creates a new SecureId instance.
 
 ### Parameters
 
 - `prefix` (optional): A string prefix to add to the ID
+- `config` (optional): Partial `SparkIdConfig` to override global/default settings
 
 ### Returns
 
@@ -91,13 +93,14 @@ const response = {
 }
 ```
 
-## `isValidId(id: string): boolean`
+## `isValidId(id: string, config?: Partial<SparkIdConfig>): boolean`
 
 Validates if a string is a properly formatted Spark-ID.
 
 ### Parameters
 
 - `id`: The string to validate
+- `config` (optional): Partial `SparkIdConfig` influencing validation (alphabet, entropyBits, separator, etc.)
 
 ### Returns
 
@@ -134,13 +137,14 @@ The function checks that the ID:
 - **Speed**: ~10,000+ validations per second
 - **Memory**: Constant memory usage
 
-## `parseId(id: string): ParsedId`
+## `parseId(id: string, config?: Partial<SparkIdConfig>): ParsedId`
 
 Parses an ID string into its components.
 
 ### Parameters
 
 - `id`: The ID string to parse
+- `config` (optional): Partial `SparkIdConfig` for parsing (e.g., custom separator)
 
 ### Returns
 
@@ -202,6 +206,76 @@ const parsed = parseId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')
 const query = `SELECT * FROM ${parsed.prefix.toLowerCase()}s WHERE id = '${parsed.id}'`
 ```
 
+## Additional Functions
+
+### `generateIdSafe(prefix?: string, config?: Partial<SparkIdConfig>): { success: true; id: string } | { success: false; error: string }`
+
+Generate an ID and capture errors as a result object instead of throwing.
+
+```typescript
+import { generateIdSafe } from '@aexoo-ai/spark-id'
+
+const result = generateIdSafe('USER')
+if (result.success) {
+  console.log(result.id)
+} else {
+  console.error('Generation failed:', result.error)
+}
+```
+
+### `validateId(id: string, config?: Partial<SparkIdConfig>): SparkIdValidationResult`
+
+Validate an ID and get structured validation info.
+
+```typescript
+import { validateId } from '@aexoo-ai/spark-id'
+
+const result = validateId('USER_ABC')
+if (!result.isValid) {
+  console.error(result.code, result.error)
+}
+```
+
+### `generateMultiple(count: number, prefix?: string, config?: Partial<SparkIdConfig>): string[]`
+
+Generate multiple IDs at once.
+
+```typescript
+import { generateMultiple } from '@aexoo-ai/spark-id'
+
+const ids = generateMultiple(5, 'ORDER')
+```
+
+Throws `SparkIdError` if `count <= 0` or `count > 1000`.
+
+### `generateUnique(count: number, prefix?: string, config?: Partial<SparkIdConfig>): Set<string>`
+
+Generate a set of unique IDs (guards against rare collisions).
+
+```typescript
+import { generateUnique } from '@aexoo-ai/spark-id'
+
+const uniqueIds = generateUnique(100, 'TXN')
+```
+
+### Global configuration helpers
+
+These affect default behavior across the process. Per-call `config` overrides globals.
+
+- `configure(config: Partial<SparkIdConfig>): void`
+- `getConfig(): SparkIdConfig`
+- `resetConfig(): void`
+
+```typescript
+import { configure, getConfig, resetConfig, generateId } from '@aexoo-ai/spark-id'
+
+configure({ case: 'upper', separator: '_', entropyBits: 72 })
+const id = generateId('USER')
+
+console.log(getConfig())
+resetConfig()
+```
+
 ## Type Definitions
 
 ### `ParsedId`
@@ -216,11 +290,17 @@ interface ParsedId {
 
 Represents the parsed components of an ID.
 
-#### Properties
+### `SparkIdValidationResult`
 
-- `prefix?`: The prefix (if any)
-- `id`: The raw ID (without prefix)
-- `full`: The complete ID string
+```typescript
+interface SparkIdValidationResult {
+  isValid: boolean
+  error?: string
+  code?: string
+}
+```
+
+Detailed validation result with optional error and code.
 
 ## Performance Characteristics
 

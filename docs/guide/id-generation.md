@@ -66,6 +66,11 @@ const ids = Array.from({ length: 10 }, () => generateId());
 // Generate multiple prefixed IDs
 const userIds = Array.from({ length: 5 }, () => generateId('USER'));
 
+// Convenience helpers
+import { generateMultiple, generateUnique } from '@aexoo-ai/spark-id'
+const orderIds = generateMultiple(10, 'ORDER')
+const uniqueTxnIds = generateUnique(100, 'TXN')
+
 // Using SecureId class
 const secureIds = Array.from({ length: 3 }, () => createId('TXN'));
 ```
@@ -111,7 +116,7 @@ Spark-ID uses Z-Base32 encoding which:
 
 - **Optional**: You can generate IDs without prefixes
 - **Single underscore separator**: `PREFIX_ID`
-- **Case-sensitive**: `USER` and `user` are different
+- **Case handling**: defaults to uppercase; configurable via `case: 'upper' | 'lower' | 'mixed'`
 - **No spaces**: Use underscores or hyphens instead
 
 ## Performance

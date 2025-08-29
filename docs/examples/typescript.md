@@ -7,7 +7,7 @@ Type-safe usage patterns with full TypeScript support.
 ### Basic Types
 
 ```typescript
-import { generateId, isValidId, parseId, ParsedId } from '@aexoo-ai/spark-id';
+import { generateId, isValidId, parseId, ParsedId, SparkIdConfig } from '@aexoo-ai/spark-id';
 
 // Explicit type annotations
 const id: string = generateId();

@@ -91,7 +91,7 @@ USER_xyz789uvw012mno345
 ### JSON Output with Prefix
 
 ```bash
-spark-id -p USER --json
+spark-id -p USER -f json
 ```
 
 **Output:**
@@ -103,10 +103,10 @@ spark-id -p USER --json
 }
 ```
 
-### Compact Output
+### CSV Output
 
 ```bash
-spark-id -c 5 --compact
+spark-id -c 5 -f csv
 ```
 
 **Output:**
@@ -275,15 +275,15 @@ spark-id -c 3 --json
 # ]
 ```
 
-### Compact Format
+### CSV Output
 
 ```bash
 # Single ID
-spark-id --compact
+spark-id -f csv
 # ybndrfg8ejkmcpqxot1uwisza345h769
 
 # Multiple IDs
-spark-id -c 5 --compact
+spark-id -c 5 -f csv
 # ybndrfg8ejkmcpqxot1uwisza345h769,abc123def456ghi789,xyz789uvw012mno345,pqr123stu456vwx789,def456ghi789jkl012
 ```
 

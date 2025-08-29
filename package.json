@@ -59,7 +59,8 @@
 		"prepare": "husky install",
 		"docs:dev": "vitepress dev docs",
 		"docs:build": "vitepress build docs",
-		"docs:preview": "vitepress preview docs"
+		"docs:preview": "vitepress preview docs",
+		"update-docs": "bash scripts/update-docs.sh"
 	},
 	"keywords": [
 		"id",

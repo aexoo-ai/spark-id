@@ -9,7 +9,7 @@ The main class for working with secure IDs. Provides both instance methods and s
 ### Constructor
 
 ```typescript
-new SecureId(id?: string, prefix?: string)
+new SecureId(id?: string, prefix?: string, config?: Partial<SparkIdConfig>)
 ```
 
 #### Parameters
@@ -147,7 +147,7 @@ const userId = SecureId.generate('USER')
 console.log(userId) // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
 ```
 
-#### `SecureId.create(prefix?: string): SecureId`
+#### `SecureId.create(prefix?: string, config?: Partial<SparkIdConfig>): SecureId`
 
 Static method to create a new SecureId instance.
 
@@ -174,6 +174,7 @@ console.log(userSecureId.full) // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
 ```
 
 #### `SecureId.parse(idString: string): ParsedId`
+#### `SecureId.parse(idString: string, config?: Partial<SparkIdConfig>): ParsedId`
 
 Static method to parse an ID string.
 
@@ -212,7 +213,7 @@ console.log(parsed2)
 // }
 ```
 
-#### `SecureId.isValid(idString: string): boolean`
+#### `SecureId.isValid(idString: string, config?: Partial<SparkIdConfig>): boolean`
 
 Static method to validate an ID string.
 
@@ -263,7 +264,33 @@ console.log(SecureId.isValidRawId('USER_ybndrfg8ejkmcpqxot1uwisza345h769')) // f
 console.log(SecureId.isValidRawId('invalid-id')) // false
 ```
 
-#### `SecureId.generateRaw(): string`
+#### `SecureId.generateRaw(config?: Partial<SparkIdConfig>): string`
+
+#### Configuration (static)
+
+`SecureId` exposes process-wide configuration helpers:
+
+- `configure(config: Partial<SparkIdConfig>): void`
+- `getConfig(): SparkIdConfig`
+- `resetConfig(): void`
+
+```typescript
+import { SecureId } from '@aexoo-ai/spark-id'
+
+SecureId.configure({ separator: '-', case: 'lower' })
+const id = SecureId.generate('user') // "user-..."
+
+const current = SecureId.getConfig()
+SecureId.resetConfig()
+```
+
+#### Instance helpers
+
+- `getEntropyBits(): number`
+- `hasPrefix(): boolean`
+- `getStats(): SparkIdStats`
+- `validate(): SparkIdValidationResult`
+- `generateSimilar(): SecureId`
 
 Static method to generate a raw ID (without prefix).
 

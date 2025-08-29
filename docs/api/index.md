@@ -6,7 +6,7 @@ Spark-ID provides a comprehensive API for generating, validating, and working wi
 
 ## Core Functions
 
-### `generateId(prefix?: string): string`
+### `generateId(prefix?: string, config?: Partial<SparkIdConfig>): string`
 
 Generates a new cryptographically secure ID.
 
@@ -26,7 +26,7 @@ const userId = generateId('USER'); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
 
 **Returns:** A string containing the generated ID
 
-### `createId(prefix?: string): SecureId`
+### `createId(prefix?: string, config?: Partial<SparkIdConfig>): SecureId`
 
 Creates a new SecureId instance.
 
@@ -46,7 +46,7 @@ const userSecureId = createId('USER');
 
 **Returns:** A new SecureId instance
 
-### `isValidId(id: string): boolean`
+### `isValidId(id: string, config?: Partial<SparkIdConfig>): boolean`
 
 Validates if a string is a properly formatted Spark-ID.
 
@@ -64,7 +64,7 @@ console.log(isValidId('invalid-id')); // false
 
 **Returns:** `true` if the ID is valid, `false` otherwise
 
-### `parseId(id: string): ParsedId`
+### `parseId(id: string, config?: Partial<SparkIdConfig>): ParsedId`
 
 Parses an ID string into its components.
 
@@ -139,7 +139,7 @@ Represents the parsed components of an ID.
 
 ## Static Methods
 
-### `SecureId.generate(prefix?: string): string`
+### `SecureId.generate(prefix?: string, config?: Partial<SparkIdConfig>): string`
 
 Static method to generate a new ID.
 
@@ -147,7 +147,7 @@ Static method to generate a new ID.
 const id = SecureId.generate('USER');
 ```
 
-### `SecureId.create(prefix?: string): SecureId`
+### `SecureId.create(prefix?: string, config?: Partial<SparkIdConfig>): SecureId`
 
 Static method to create a new SecureId instance.
 
@@ -155,7 +155,7 @@ Static method to create a new SecureId instance.
 const secureId = SecureId.create('USER');
 ```
 
-### `SecureId.parse(idString: string): ParsedId`
+### `SecureId.parse(idString: string, config?: Partial<SparkIdConfig>): ParsedId`
 
 Static method to parse an ID string.
 
@@ -163,7 +163,7 @@ Static method to parse an ID string.
 const parsed = SecureId.parse('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
 ```
 
-### `SecureId.isValid(idString: string): boolean`
+### `SecureId.isValid(idString: string, config?: Partial<SparkIdConfig>): boolean`
 
 Static method to validate an ID string.
 
@@ -172,6 +172,19 @@ const isValid = SecureId.isValid('USER_ybndrfg8ejkmcpqxot1uwisza345h769');
 ```
 
 ### `SecureId.isValidRawId(rawId: string): boolean`
+
+### Global configuration
+
+Process-wide configuration helpers to control defaults:
+
+```typescript
+import { configure, getConfig, resetConfig } from '@aexoo-ai/spark-id'
+
+configure({ separator: '_', case: 'upper', entropyBits: 72 })
+const cfg = getConfig()
+resetConfig()
+```
+
 
 Static method to validate a raw ID (without prefix).
 

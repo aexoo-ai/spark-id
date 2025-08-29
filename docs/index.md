@@ -55,13 +55,16 @@ yarn add @aexoo-ai/spark-id
 :::
 
 ```typescript
-import { generateId, createId, isValidId } from '@aexoo-ai/spark-id';
+import { generateId, createId, isValidId, configure } from '@aexoo-ai/spark-id';
+
+// Configure casing and separator (optional)
+configure({ case: 'upper', separator: '_' })
 
 // Generate a simple ID
-const id = generateId(); // "ybndrfg8ejkmcpqxot1uwisza345h769"
+const id = generateId(); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Generate with prefix
-const userId = generateId('USER'); // "USER_ybndrfg8ejkmcpqxot1uwisza345h769"
+const userId = generateId('USER'); // "USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 // Validate an ID
 isValidId(userId); // true

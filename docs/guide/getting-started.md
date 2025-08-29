@@ -38,7 +38,10 @@ yarn add @aexoo-ai/spark-id
 ### Basic Usage
 
 ```typescript
-import { generateId, createId, isValidId } from '@aexoo-ai/spark-id';
+import { generateId, createId, isValidId, configure } from '@aexoo-ai/spark-id';
+
+// Optional: set global defaults
+configure({ case: 'upper', separator: '_' })
 
 // Generate a simple ID
 const id = generateId();
