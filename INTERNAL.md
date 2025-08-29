@@ -33,6 +33,12 @@ pnpm docs:build
 pnpm docs:check
 ```
 
+### Generate Favicons
+
+```bash
+pnpm favicon
+```
+
 ## Automated Documentation Updates
 
 ### Using the Update Script

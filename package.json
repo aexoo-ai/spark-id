@@ -61,7 +61,8 @@
 		"docs:build": "vitepress build docs",
 		"docs:preview": "vitepress preview docs",
 		"docs:check": "vitepress build docs --dry-run",
-		"update-docs": "bash scripts/update-docs.sh"
+		"update-docs": "bash scripts/update-docs.sh",
+		"favicon": "bash scripts/generate-favicon.sh"
 	},
 	"keywords": [
 		"id",

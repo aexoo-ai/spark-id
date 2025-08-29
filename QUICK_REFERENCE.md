@@ -15,6 +15,9 @@ pnpm docs:check
 # Auto-update docs from code changes
 pnpm update-docs
 
+# Generate favicons from logo
+pnpm favicon
+
 # Preview built docs
 pnpm docs:preview
 ```
