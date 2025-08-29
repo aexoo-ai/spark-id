@@ -12,7 +12,10 @@ export default defineConfig({
     },
 
     themeConfig: {
-        logo: '/logo.svg',
+        logo: {
+            light: '/logo.svg',
+            dark: '/logo-dark.svg'
+        },
         siteTitle: 'Spark-ID',
 
         nav: [
