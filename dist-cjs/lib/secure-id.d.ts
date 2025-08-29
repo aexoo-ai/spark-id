@@ -1,4 +1,4 @@
-import type { SparkIdStats, SparkIdValidationResult } from '../types';
+import type { SparkIdStats, SparkIdValidationResult, SparkIdConfig } from '../types';
 /**
  * Secure ID Generator with optional prefix support
  *
@@ -39,6 +39,7 @@ export declare class InvalidIdError extends SparkIdError {
     constructor(id: string, reason?: string);
 }
 export declare class SecureId {
+    private static globalConfig;
     private static readonly Z_BASE32_ALPHABET;
     private static readonly BYTES_LENGTH;
     private static readonly PREFIX_SEPARATOR;
@@ -47,7 +48,7 @@ export declare class SecureId {
     readonly id: string;
     readonly prefix?: string;
     readonly full: string;
-    constructor(id?: string, prefix?: string);
+    constructor(id?: string, prefix?: string, config?: Partial<SparkIdConfig>);
     /**
      * Validate prefix format
      */
@@ -55,19 +56,19 @@ export declare class SecureId {
     /**
      * Generate a new raw ID (without prefix)
      */
-    static generateRaw(): string;
+    static generateRaw(config?: Partial<SparkIdConfig>): string;
     /**
-     * Generate a new ID with optional prefix
+     * Generate a new ID with optional prefix and configuration
      */
-    static generate(prefix?: string): string;
+    static generate(prefix?: string, config?: Partial<SparkIdConfig>): string;
     /**
      * Create a new SecureId instance
      */
-    static create(prefix?: string): SecureId;
+    static create(prefix?: string, config?: Partial<SparkIdConfig>): SecureId;
     /**
      * Parse an ID string into components
      */
-    static parse(idString: string): {
+    static parse(idString: string, config?: Partial<SparkIdConfig>): {
         prefix?: string;
         id: string;
         full: string;
@@ -75,11 +76,11 @@ export declare class SecureId {
     /**
      * Validate if a string is a valid ID
      */
-    static isValid(idString: string): boolean;
+    static isValid(idString: string, config?: Partial<SparkIdConfig>): boolean;
     /**
      * Validate if a raw ID (without prefix) is valid
      */
-    static isValidRawId(rawId: string): boolean;
+    static isValidRawId(rawId: string, config?: Partial<SparkIdConfig>): boolean;
     private static base32Encode;
     toString(): string;
     equals(other: SecureId | string): boolean;
@@ -91,6 +92,22 @@ export declare class SecureId {
      * Check if this ID has a prefix
      */
     hasPrefix(): boolean;
+    /**
+     * Configure global settings
+     */
+    static configure(config: Partial<SparkIdConfig>): void;
+    /**
+     * Get current global configuration
+     */
+    static getConfig(): SparkIdConfig;
+    /**
+     * Reset configuration to defaults
+     */
+    static resetConfig(): void;
+    /**
+     * Get configuration value with fallback to defaults
+     */
+    private static getConfigValue;
     /**
      * Get statistics about this ID
      */
@@ -112,22 +129,25 @@ export declare class SecureId {
         full: string;
     };
 }
-export declare const generateId: (prefix?: string) => string;
-export declare const createId: (prefix?: string) => SecureId;
-export declare const isValidId: (id: string) => boolean;
-export declare const parseId: (id: string) => {
+export declare const generateId: (prefix?: string, config?: Partial<SparkIdConfig>) => string;
+export declare const createId: (prefix?: string, config?: Partial<SparkIdConfig>) => SecureId;
+export declare const isValidId: (id: string, config?: Partial<SparkIdConfig>) => boolean;
+export declare const parseId: (id: string, config?: Partial<SparkIdConfig>) => {
     prefix?: string;
     id: string;
     full: string;
 };
-export declare const generateIdSafe: (prefix?: string) => {
+export declare const generateIdSafe: (prefix?: string, config?: Partial<SparkIdConfig>) => {
     success: true;
     id: string;
 } | {
     success: false;
     error: string;
 };
-export declare const validateId: (id: string) => SparkIdValidationResult;
-export declare const generateMultiple: (count: number, prefix?: string) => string[];
-export declare const generateUnique: (count: number, prefix?: string) => Set<string>;
+export declare const validateId: (id: string, config?: Partial<SparkIdConfig>) => SparkIdValidationResult;
+export declare const generateMultiple: (count: number, prefix?: string, config?: Partial<SparkIdConfig>) => string[];
+export declare const generateUnique: (count: number, prefix?: string, config?: Partial<SparkIdConfig>) => Set<string>;
+export declare const configure: (config: Partial<SparkIdConfig>) => void;
+export declare const getConfig: () => SparkIdConfig;
+export declare const resetConfig: () => void;
 //# sourceMappingURL=secure-id.d.ts.map

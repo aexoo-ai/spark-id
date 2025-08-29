@@ -160,6 +160,55 @@ console.log(secureId.getStats()); // Statistics about the ID
 console.log(secureId.validate()); // Validation result
 ```
 
+### Configuration System
+
+```typescript
+import {
+  generateId,
+  configure,
+  getConfig,
+  resetConfig,
+} from '@aexoo-ai/spark-id';
+
+// Global configuration
+configure({
+  maxPrefixLength: 10,
+  separator: '-',
+  case: 'lower',
+  entropyBits: 48,
+});
+
+// Generate with global config
+const id1 = generateId('USER'); // "user-abc123"
+
+// Per-call configuration (overrides global)
+const id2 = generateId('TEST', {
+  alphabet: '0123456789ABCDEFGHIJKLMNOPQRSTUV',
+  entropyBits: 32,
+  separator: '=',
+  case: 'upper',
+}); // "TEST=ABC123"
+
+// Get current configuration
+console.log(getConfig());
+
+// Reset to defaults
+resetConfig();
+```
+
+#### Configuration Options
+
+| Option            | Type                                        | Default                              | Description                                   |
+| ----------------- | ------------------------------------------- | ------------------------------------ | --------------------------------------------- |
+| `alphabet`        | `string`                                    | `'yvndrfg9ejkmcpqxwt2uwxsza345h769'` | Character set for encoding (must be 32 chars) |
+| `entropyBits`     | `number`                                    | `72`                                 | Security level in bits (9 bytes)              |
+| `maxPrefixLength` | `number`                                    | `20`                                 | Maximum prefix length                         |
+| `separator`       | `string`                                    | `'_'`                                | Prefix separator character                    |
+| `case`            | `'upper' \| 'lower' \| 'mixed'`             | `'upper'`                            | Output case formatting                        |
+| `encoding`        | `'base32' \| 'base64' \| 'hex' \| 'custom'` | `'base32'`                           | Encoding method                               |
+| `timestamp`       | `boolean`                                   | `false`                              | Include timestamp component                   |
+| `machineId`       | `string \| number`                          | `undefined`                          | Machine/instance identifier                   |
+
 ### Error Handling
 
 ```typescript

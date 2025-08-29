@@ -6,9 +6,20 @@ export interface ParsedId {
     id: string;
     full: string;
 }
+export interface SparkIdConfig {
+    alphabet?: string;
+    entropyBits?: number;
+    length?: number;
+    maxPrefixLength?: number;
+    separator?: string;
+    case?: 'upper' | 'lower' | 'mixed';
+    encoding?: 'base32' | 'base64' | 'hex' | 'custom';
+    timestamp?: boolean;
+    machineId?: string | number;
+}
 export interface SparkIdOptions {
     prefix?: string;
-    length?: number;
+    config?: Partial<SparkIdConfig>;
 }
 export interface SparkIdValidationResult {
     isValid: boolean;
@@ -20,6 +31,6 @@ export interface SparkIdStats {
     collisionProbability: number;
     maxIds: number;
 }
-export type { SecureId } from './lib/secure-id.js';
-export type { SparkIdError, InvalidPrefixError, InvalidIdError } from './lib/secure-id.js';
+export declare const DEFAULT_CONFIG: SparkIdConfig;
+export type { InvalidIdError, InvalidPrefixError, SecureId, SparkIdError } from './lib/secure-id.js';
 //# sourceMappingURL=types.d.ts.map
