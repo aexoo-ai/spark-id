@@ -447,7 +447,7 @@ npm run docs:dev
 
 ### Publishing
 
-For information on how to publish new versions to npm, see [PUBLISHING.md](PUBLISHING.md).
+For information on how to publish new versions to npm, see [PUBLISHING.md](internal/development/publishing-guide.md).
 
 ## 📄 License
 

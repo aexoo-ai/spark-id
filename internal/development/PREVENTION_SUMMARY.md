@@ -28,7 +28,7 @@ pnpm format           # Auto-fix formatting issues
 
 ### **3. Documentation**
 
-- **`DEVELOPMENT.md`** - Comprehensive development guide
+- **`development-guide.md`** - Comprehensive development guide
 - **`QUICK_COMMANDS.md`** - Quick reference for common commands
 - **`PREVENTION_SUMMARY.md`** - This summary
 
@@ -142,7 +142,7 @@ pnpm prepare
 
 ## 📚 Resources
 
-- **`DEVELOPMENT.md`** - Complete development guide
+- **`development-guide.md`** - Complete development guide
 - **`QUICK_COMMANDS.md`** - Command reference
 - **`.husky/`** - Git hooks configuration
 - **`package.json`** - Scripts and lint-staged config
