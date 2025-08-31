@@ -12,6 +12,7 @@ Development-related documentation for contributors:
 - `development-guide.md` - Comprehensive development guide
 - `QUICK_COMMANDS.md` - Quick reference for common commands
 - `publishing-guide.md` - Guide for publishing to NPM
+- `CLI_USAGE.md` - CLI usage guide and troubleshooting for developers
 
 ### `maintenance/`
 

@@ -2,6 +2,24 @@
 
 Learn how to use the Spark-ID command-line interface effectively.
 
+## Access Methods
+
+The CLI can be accessed in several ways depending on your setup:
+
+```bash
+# Global installation
+spark-id -p USER
+
+# Using npx (recommended for workspaces)
+npx @aexoo-ai/spark-id -p USER
+
+# Using pnpm script (if added to package.json)
+pnpm spark-id -p USER
+
+# Direct binary path
+./node_modules/.bin/spark-id -p USER
+```
+
 ## Basic Commands
 
 ### Generate a Single ID

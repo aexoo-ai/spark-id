@@ -41,7 +41,7 @@ yarn add @aexoo-ai/spark-id
 import { generateId, createId, isValidId, configure } from '@aexoo-ai/spark-id';
 
 // Optional: set global defaults
-configure({ case: 'upper', separator: '_' })
+configure({ case: 'upper', separator: '_' });
 
 // Generate a simple ID
 const id = generateId();
@@ -102,9 +102,20 @@ console.log(parsed2);
 Spark-ID also includes a powerful CLI tool:
 
 ```bash
+# Using npx (recommended)
+npx @aexoo-ai/spark-id -p USER -c 5
+
 # Install globally
 npm install -g @aexoo-ai/spark-id
+spark-id -p TXN -c 3
 
+# In pnpm workspaces
+pnpm spark-id -p ORDER -c 2
+```
+
+**Common CLI Commands:**
+
+```bash
 # Generate a single ID
 spark-id
 
@@ -129,6 +140,8 @@ spark-id -c 3 -f json
 # CSV output
 spark-id -c 3 -f csv
 ```
+
+**Troubleshooting:** If `spark-id` command is not found, use `npx @aexoo-ai/spark-id` instead.
 
 ## ID Format
 
