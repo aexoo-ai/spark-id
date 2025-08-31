@@ -50,6 +50,16 @@ npm install @aexoo-ai/spark-id
 npx spark-id
 ```
 
+### pnpm Workspace Usage
+
+```bash
+# Add to package.json scripts
+pnpm spark-id
+
+# Or use npx (recommended for workspaces)
+npx @aexoo-ai/spark-id -p USER
+```
+
 ## Basic Usage
 
 ### Generate IDs
@@ -192,6 +202,48 @@ spark-id --parse invalid-id
 
 - `0`: Success
 - `1`: Error or validation failed
+
+## Troubleshooting
+
+### "spark-id command not found"
+
+This is common in pnpm workspaces or when the binary isn't in your PATH. Try these solutions:
+
+#### Use npx (Recommended)
+
+```bash
+npx @aexoo-ai/spark-id -p USER -c 5
+```
+
+#### Add to package.json scripts
+
+```json
+{
+  "scripts": {
+    "spark-id": "spark-id"
+  }
+}
+```
+
+Then run: `pnpm spark-id`
+
+#### Use direct binary path
+
+```bash
+# When installed as a package
+./node_modules/.bin/spark-id -p USER
+
+# In development
+node dist/cli.cjs -p USER
+```
+
+#### Install globally
+
+```bash
+npm install -g @aexoo-ai/spark-id
+# or
+pnpm add -g @aexoo-ai/spark-id
+```
 
 ## Performance
 

@@ -78,16 +78,34 @@ console.log(parsed.id); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
 
 ### CLI Usage
 
+The package includes a command-line interface for generating and validating IDs:
+
 ```bash
+# Using npx (recommended)
+npx @aexoo-ai/spark-id                    # Simple ID
+npx @aexoo-ai/spark-id -p USER           # With prefix
+npx @aexoo-ai/spark-id -c 5              # Multiple IDs
+npx @aexoo-ai/spark-id -v USER_123       # Validate ID
+
 # Install globally
 npm install -g @aexoo-ai/spark-id
+spark-id -p TXN -c 3 -f json             # JSON output
 
-# Generate IDs
-spark-id                    # Simple ID
-spark-id -p USER           # With prefix
-spark-id -c 5              # Multiple IDs
-spark-id -v USER_123       # Validate ID
+# In pnpm workspaces
+pnpm spark-id                             # Using workspace script
 ```
+
+**CLI Options:**
+
+- `-p, --prefix <prefix>` - Add prefix to generated IDs
+- `-c, --count <number>` - Generate multiple IDs
+- `-v, --validate <id>` - Validate if an ID is properly formatted
+- `--parse <id>` - Parse an ID and show its components
+- `-f, --format <format>` - Output format: json, text, csv
+- `-e, --examples` - Show usage examples
+- `-h, --help` - Show help message
+
+For detailed CLI documentation, see [CLI_USAGE.md](./CLI_USAGE.md).
 
 ## 📖 Documentation
 
@@ -447,7 +465,7 @@ npm run docs:dev
 
 ### Publishing
 
-For information on how to publish new versions to npm, see [PUBLISHING.md](PUBLISHING.md).
+For information on how to publish new versions to npm, see [PUBLISHING.md](internal/development/publishing-guide.md).
 
 ## 📄 License
 

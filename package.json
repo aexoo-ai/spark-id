@@ -7,7 +7,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "spark-id": "dist/cli.js"
+    "spark-id": "dist/cli.cjs"
   },
   "exports": {
     ".": {
@@ -51,7 +51,7 @@
     "test": "vitest",
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
-    "test:integration": "node test-integration.cjs",
+    "test:integration": "cd tests/integration && node test-integration.cjs",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write src/**/*.ts",
@@ -64,7 +64,9 @@
     "update-docs": "bash scripts/update-docs.sh",
     "favicon": "bash scripts/generate-favicon.sh",
     "format:check": "prettier --check src/**/*.ts",
-    "quality": "pnpm lint && pnpm format:check && pnpm test"
+    "quality": "pnpm lint && pnpm format:check && pnpm test",
+    "spark-id": "node dist/cli.cjs",
+    "test:cli": "bash scripts/test-cli.sh"
   },
   "keywords": [
     "id",

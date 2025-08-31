@@ -53,7 +53,7 @@ Express.js integration for web applications:
 ```typescript
 import { generateId, configure } from '@aexoo-ai/spark-id';
 
-configure({ case: 'upper', separator: '_' })
+configure({ case: 'upper', separator: '_' });
 
 // Simple ID
 const id = generateId(); // "YBNDRFG8EJKMCPQXOT1UWISZA345H769"
@@ -135,6 +135,9 @@ node examples/web-api-example.js
 ### CLI Examples
 
 ```bash
+# Using npx (recommended)
+npx @aexoo-ai/spark-id -p USER -c 5
+
 # Generate a single ID
 spark-id
 
@@ -149,6 +152,9 @@ spark-id -v USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
 
 # Parse an ID
 spark-id --parse USER_YBNDRFG8EJKMCPQXOT1UWISZA345H769
+
+# In pnpm workspaces
+pnpm spark-id -p TXN -c 3
 ```
 
 ## Common Patterns

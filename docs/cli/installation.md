@@ -260,6 +260,53 @@ npm config get prefix
 export PATH="$(npm config get prefix)/bin:$PATH"
 ```
 
+### pnpm Workspace Issues
+
+If you're using pnpm workspaces and the `spark-id` command is not found, try these solutions:
+
+#### Solution 1: Use npx (Recommended)
+
+```bash
+# Always works, downloads latest version
+npx @aexoo-ai/spark-id -p USER -c 5
+```
+
+#### Solution 2: Add to package.json scripts
+
+```json
+{
+  "scripts": {
+    "spark-id": "spark-id",
+    "generate-user": "spark-id -p USER",
+    "generate-txn": "spark-id -p TXN -c 10"
+  }
+}
+```
+
+Then run:
+
+```bash
+pnpm spark-id
+pnpm generate-user
+```
+
+#### Solution 3: Use direct binary path
+
+```bash
+# From project root
+./node_modules/.bin/spark-id -p USER
+
+# Or with full path
+node node_modules/@aexoo-ai/spark-id/dist/cli.cjs -p USER
+```
+
+#### Solution 4: Install globally
+
+```bash
+pnpm add -g @aexoo-ai/spark-id
+spark-id -p USER
+```
+
 ### Version Conflicts
 
 ```bash

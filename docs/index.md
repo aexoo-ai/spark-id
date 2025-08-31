@@ -76,6 +76,17 @@ const customId = generateId('TXN', { case: 'lower', separator: '-' }); // "txn-Y
 isValidId(userId); // true
 ```
 
+## CLI Usage
+
+```bash
+# Generate IDs from command line
+npx @aexoo-ai/spark-id -p USER -c 5
+
+# Or install globally
+npm install -g @aexoo-ai/spark-id
+spark-id -p TXN -c 3
+```
+
 ## Live Demo
 
 <div class="demo-container">
@@ -254,7 +265,7 @@ onMounted(() => {
 
 Choose your path to get started with Spark-ID:
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
   <a href="/spark-id/guide/getting-started" class="feature-card">
     <h3>📖 Guide</h3>
     <p>Learn the basics and core concepts</p>
@@ -266,6 +277,10 @@ Choose your path to get started with Spark-ID:
   <a href="/spark-id/api/" class="feature-card">
     <h3>🔧 API Reference</h3>
     <p>Complete API documentation</p>
+  </a>
+  <a href="/spark-id/cli/" class="feature-card">
+    <h3>🖥️ CLI Tool</h3>
+    <p>Command-line interface for ID generation</p>
   </a>
 </div>
 
